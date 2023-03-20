@@ -8,9 +8,7 @@ const firebaseConfig = {
     authDomain: "delishare-react-project.firebaseapp.com",
     projectId: "delishare-react-project",
     storageBucket: "delishare-react-project.appspot.com",
-    messagingSenderId: "176057497234",
-    appId: "1:176057497234:web:c180ffc81c1f9d9a02584b",
-    measurementId: "G-3KEKXLW4DQ"
+    messagingSenderId: "176057497234"
 };
 
 const app = initializeApp(firebaseConfig);
