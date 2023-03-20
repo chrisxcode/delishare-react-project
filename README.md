@@ -1,6 +1,6 @@
 # Delishare
 
-Delishare is a SPA build on React and Firebase, which intents to provide its users with the option to create, edit and share delicious recipes from around the world.
+Delishare is a Web App built on React and Firebase, which aims to help users share delicious recipes from around the world.
 
 ## Available Scripts
 
