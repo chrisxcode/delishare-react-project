@@ -1,0 +1,7 @@
+.ListOfRecipes {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
+}

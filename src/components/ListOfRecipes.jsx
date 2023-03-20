@@ -1,14 +1,17 @@
 import { SingleRecipe } from "./SingleRecipe";
-
+import styles from "./styles/ListOfRecipes.module.css"
 
 export const ListOfRecipes = ({ recipes }) => {
 
     return (
-        <div className="ListOfRecipes">
+        <div>
+            <div className={styles.ListOfRecipes}>
 
-            {recipes.map(recipe => (
-                <SingleRecipe key={recipe.id} recipe={recipe} />
-            ))}
+                {recipes.map(recipe => (
+                    <SingleRecipe key={recipe.id} recipe={recipe} />
+                ))}
+            </div>
+
         </div>
     );
 
