@@ -1,3 +1,4 @@
+import { Route, Routes } from "react-router-dom"
 import { useEffect, useState } from 'react';
 import './App.css';
 import { Auth } from './components/Auth';
@@ -9,11 +10,11 @@ function App() {
 
     const [recipes, setRecipes] = useState([]);
 
-    const moviesCollectionRef = collection(db, "recipes");
+    const recipeCollectionRef = collection(db, "recipes");
 
     const getRecipes = async () => {
         try {
-            const data = await getDocs(moviesCollectionRef);
+            const data = await getDocs(recipeCollectionRef);
             const filteredData = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
             setRecipes(filteredData);
         } catch (error) {
@@ -23,14 +24,16 @@ function App() {
 
     useEffect(() => {
         getRecipes();
-    },)
+    }, [])
 
     return (
         <div className="App">
-            <Auth />
+            <Routes>
+                <Route path="/" element={<Auth />} />
+                <Route path="/recipes" element={<ListOfRecipes recipes={recipes} />} />
+            </Routes>
 
-            <ListOfRecipes recipes={recipes} />
-        </div>
+        </div >
     );
 
 
