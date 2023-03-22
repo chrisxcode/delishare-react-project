@@ -1,5 +1,9 @@
 import { auth } from '../config/firebase';
-import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+    createUserWithEmailAndPassword,
+    signOut,
+    signInWithEmailAndPassword
+} from 'firebase/auth';
 
 
 export const signUp = async (email, password, setLoggedStatus) => {
@@ -8,7 +12,7 @@ export const signUp = async (email, password, setLoggedStatus) => {
         alert('Registration successful!');
         setLoggedStatus(true);
     } catch (error) {
-        alert('Error:' + error)
+        alert(error.message)
     }
 }
 
@@ -18,7 +22,7 @@ export const logIn = async (email, password, setLoggedStatus) => {
         alert('LogIn successful!');
         setLoggedStatus(true);
     } catch (error) {
-        alert('Error:' + error)
+        alert(error.message)
     }
 }
 
@@ -28,6 +32,6 @@ export const logout = async (setLoggedStatus) => {
         alert('Logout successful!');
         setLoggedStatus(false);
     } catch (error) {
-        alert('Error:' + error)
+        alert(error.message)
     }
 }
