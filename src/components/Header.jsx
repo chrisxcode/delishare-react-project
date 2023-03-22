@@ -21,8 +21,11 @@ export const Header = ({
                     <li className="navLink"><Link to="/">Home</Link></li>
                     <li className="navLink"><Link to="/recipes">Recipes</Link></li>
                     {loggedStatus ?
-                        <><li className="navLink"><Link to="/profile">Profile</Link></li>
-                            <li className="navLink"><button onClick={logOutHandler}>Logout</button></li></>
+                        <>
+                            <li className="navLink"><Link to="/create">Create New Recipe</Link></li>
+                            <li className="navLink"><Link to="/profile">Profile</Link></li>
+                            <li className="navLink"><button onClick={logOutHandler}>Logout</button></li>
+                        </>
                         : <li className="navLink"><Link to="/auth">Login</Link></li>}
                 </ul>
             </nav>
