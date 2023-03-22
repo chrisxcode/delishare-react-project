@@ -1,7 +1,8 @@
 .navContainer {
     text-align: center;
-    background-color: rgb(33, 91, 23);
+    background-color: rgb(34, 44, 33);
     padding-bottom: 10px;
+    height: 100px;
 }
 
 .navContainer li {
@@ -13,13 +14,13 @@
 .navContainer button {
     text-decoration: none;
     background-color: transparent;
-    color: white;
+    color: rgb(180, 176, 176);
     border: solid 1px white;
     padding: 10px;
     border-radius: 10px;
 }
 
 .navContainer p {
-    color: white;
+    color: rgb(180, 176, 176);
     padding-top: 10px;
 }

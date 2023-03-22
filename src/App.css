@@ -1,3 +1,20 @@
+body {
+  background-color: rgb(77, 113, 113);
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 body,
 * {
   padding: 0px;
@@ -6,4 +23,25 @@ body,
 
 .App {
   text-align: center;
+}
+
+button {
+  padding: 10px;
+  background-color: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+.li {
+  padding: 10px;
+  background-color: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  border: solid 1px black;
+  text-decoration: none;
+  color: black;
 }
