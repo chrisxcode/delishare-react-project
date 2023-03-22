@@ -12,11 +12,25 @@ import { Header } from "./components/Header";
 import { Home } from "./components/Home";
 import { Auth } from './components/Auth';
 import { ListOfRecipes } from './components/ListOfRecipes';
+import { CreateRecipe } from './components/CreateRecipe';
+import { Profile } from './components/Profile';
+import { DetailedRecipe } from './components/DetailedRecipe';
+import { NotFound } from './components/NotFound';
+import { EditRecipe } from './components/Edit Recipe';
 
 function App() {
 
-    // USER - Create state, which will hold user logged in status
+    // USER - Initialize state, which will hold user logged in status
     const [loggedStatus, setLoggedStatus] = useState(auth?.currentUser);
+
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                setLoggedStatus(auth?.currentUser);
+            }
+        });
+    }, []);
+
 
     // USER - Redirect to Home page when user logs in/out
     const navigate = useNavigate();
@@ -25,11 +39,11 @@ function App() {
         navigate("/");
     }, [loggedStatus]);
 
-    // RECIPES - Connect to Firebase collection for recipes
-    const recipeCollectionRef = collection(db, "recipes");
-
     // RECIPES - Create state for recipe collection
     const [recipes, setRecipes] = useState([]);
+
+    // RECIPES - Connect to Firebase collection for recipes
+    const recipeCollectionRef = collection(db, "recipes");
 
     // RECIPES - Fetch recipes and store them in state (only on first load)
     const getRecipes = async () => {
@@ -65,6 +79,14 @@ function App() {
                     loggedStatus={loggedStatus} />} />
 
                 <Route path="/recipes" element={<ListOfRecipes recipes={recipes} />} />
+                <Route path="/recipes/:recipeId" element={<DetailedRecipe recipes={recipes} setRecipes={setRecipes} />} />
+                <Route path="/recipes/:recipeId/edit" element={<EditRecipe setRecipes={setRecipes} recipes={recipes} />} />
+
+                <Route path="/create" element={<CreateRecipe setRecipes={setRecipes} />} />
+
+                <Route path="/profile" element={<Profile />} />
+
+                <Route path="*" element={<NotFound />} />
 
             </Routes>
 
