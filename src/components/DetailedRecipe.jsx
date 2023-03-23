@@ -1,6 +1,7 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { deleteRecipe } from "../REST/recipes";
 import { auth } from "../config/firebase";
+import styles from "./styles/DetailedRecipe.module.css"
 
 export const DetailedRecipe = ({ recipes, setRecipes }) => {
 
@@ -11,8 +12,6 @@ export const DetailedRecipe = ({ recipes, setRecipes }) => {
 
     const deleteConfirmation = async () => {
         if (window.confirm('Are you sure you want to delete this recipe?')) {
-            console.log(recipe.userId);
-            console.log(auth?.currentUser?.uid);
             await deleteRecipe(recipeId);
             setRecipes(oldRecipes => oldRecipes.filter(x => x.id !== recipeId));
             navigate("/recipes");
@@ -20,20 +19,33 @@ export const DetailedRecipe = ({ recipes, setRecipes }) => {
     }
 
     return (
-        <div>
-            <h1>{recipe.title}</h1>
-            <p>Prep time: {recipe.prepTime} minutes</p>
-            <p>Difficulty: {recipe.difficulty}</p>
-            <p>{recipe.instructions}</p>
-            {auth?.currentUser?.uid === recipe.userId &&
-                <div>
-                    <ul>
-                        <li><Link className='li' to="edit">EDIT</Link></li>
+        <div className={styles.wrapper}>
+            <div className={styles.container}>
+                <div className={styles.header}>
+                    <h1>{recipe.title}</h1>
+                    <h4>Submitted by Chris</h4>
+                </div>
+                <img src={recipe.imageLink} alt="" />
+                <div className={styles.details}>
+                    <p>Prep time: {recipe.prepTime} minutes</p>
+                    <p>Difficulty: {recipe.difficulty}</p>
+                </div>
+                <div className={styles.ingredients}>
+                    <h2>Ingredients:</h2>
+                    {recipe.ingredients.map(x => <p key={x.substring(0, 20)}>{x}</p>)}
+                </div>
+                <div className={styles.instructions}>
+                    <h2>Instructions:</h2>
+                    {recipe.instructions.map(x => <p key={x.substring(0, 20)}>{x}</p>)}
+                </div>
+                {auth?.currentUser?.uid === recipe.userId &&
+                    <div className={styles.author}>
                         <ul>
-                            <li><button onClick={deleteConfirmation}>DELETE</button></li>
+                            <li className={styles.edit}><Link to="edit"><i className="fa-solid fa-pen"></i></Link></li>
+                            <li className={styles.delete}><button onClick={deleteConfirmation}><i className="fa-solid fa-trash"></i></button></li>
                         </ul>
-                    </ul>
-                </div>}
+                    </div>}
+            </div>
         </div>
     )
 }
