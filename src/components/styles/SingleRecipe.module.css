@@ -1,13 +1,56 @@
-.SingleRecipe {
-    background-image: linear-gradient(to bottom right, rgb(255, 165, 47), rgb(26, 215, 102));
+.recipe {
+    position: relative;
+    background-color: rgb(88, 214, 221);
     display: inline-block;
-    width: 300px;
-    height: 400px;
-    margin: 20px;
-    padding: 20px;
+    width: 350px;
+    height: 450px;
     text-align: center;
     border-radius: 10px;
-    border: solid rgb(24, 89, 2) 1px;
-    border-inline-start: 1px;
-    border-bottom: 1px;
+}
+
+.bg_image {
+    width: 100%;
+    height: 50%;
+    filter: brightness(60%);
+    object-fit: cover;
+    background-position: center;
+    border-radius: 9px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-size: cover;
+}
+
+.upper_half {
+    display: flex;
+    color: white;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 210px;
+    z-index: 1;
+}
+
+.upper_half h1 {
+    display: inline-block;
+    text-shadow: 2px 2px 6px #000;
+}
+
+.information {
+    padding: 15px;
+    padding-bottom: 10px;
+}
+
+.information p {
+    margin: 5px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.details {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px 15px;
+    border-radius: 10px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
