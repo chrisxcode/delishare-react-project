@@ -12,13 +12,15 @@ import { Header } from "./components/Header";
 import { Home } from "./components/Home";
 import { Auth } from './components/Auth';
 import { ListOfRecipes } from './components/ListOfRecipes';
-import { CreateRecipe } from './components/CreateRecipe';
+import { AuthorRecipe } from './components/AuthorRecipe';
 import { Profile } from './components/Profile';
 import { DetailedRecipe } from './components/DetailedRecipe';
 import { NotFound } from './components/NotFound';
-import { EditRecipe } from './components/Edit Recipe';
 
 function App() {
+
+    // THEME
+    const [themeColors, setThemeColors] = useState({ header: "#264653", body: "#2a9d8f" })
 
     // USER - Initialize state, which will hold user logged in status
     const [loggedStatus, setLoggedStatus] = useState(auth?.currentUser);
@@ -62,36 +64,36 @@ function App() {
 
     return (
         <div className="App">
-            <Header
-                loggedStatus={loggedStatus}
-                setLoggedStatus={setLoggedStatus}
-                signUp={signUp}
-                logIn={logIn}
-                logout={logout} />
-            <Routes>
 
-                <Route path="/" element={<Home />} />
+            <Header themeColors={themeColors} loggedStatus={loggedStatus} />
 
-                <Route path="/auth" element={<Auth
-                    setLoggedStatus={setLoggedStatus}
-                    signUp={signUp}
-                    logIn={logIn}
-                    loggedStatus={loggedStatus} />} />
+            <div id='body' style={{ backgroundColor: themeColors.body }}>
 
-                <Route path="/recipes" element={<ListOfRecipes recipes={recipes} />} />
-                <Route path="/recipes/:recipeId" element={<DetailedRecipe recipes={recipes} setRecipes={setRecipes} />} />
-                <Route path="/recipes/:recipeId/edit" element={<EditRecipe setRecipes={setRecipes} recipes={recipes} />} />
+                <Routes>
+                    <Route path="/auth" element={<Auth
+                        setLoggedStatus={setLoggedStatus}
+                        signUp={signUp}
+                        logIn={logIn}
+                        loggedStatus={loggedStatus} />} />
+                    <Route path="/recipes" element={<ListOfRecipes recipes={recipes} themeColors={themeColors} />} />
+                    <Route path="/recipes/:recipeId" element={<DetailedRecipe recipes={recipes} setRecipes={setRecipes} />} />
+                    <Route path="/recipes/:recipeId/edit" element={<AuthorRecipe setRecipes={setRecipes} recipes={recipes} />} />
+                    <Route path="/create" element={<AuthorRecipe setRecipes={setRecipes} recipes={recipes} />} />
+                    <Route path="/profile" element={<Profile
+                        setLoggedStatus={setLoggedStatus}
+                        logout={logout} />} />
+                    <Route path="*" element={<NotFound />} />
+                    <Route path="/" exact element={<Home />} />
+                </Routes>
 
-                <Route path="/create" element={<CreateRecipe setRecipes={setRecipes} />} />
+            </div>
 
-                <Route path="/profile" element={<Profile />} />
 
-                <Route path="*" element={<NotFound />} />
-
-            </Routes>
 
         </div >
     );
+
+
 
 
 }
