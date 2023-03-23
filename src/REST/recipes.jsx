@@ -1,11 +1,12 @@
-import { db, auth } from '../config/firebase';
-import { doc, addDoc, updateDoc, deleteDoc, collection } from "firebase/firestore";
+import { db } from '../config/firebase';
+import { doc, addDoc, updateDoc, deleteDoc, collection, serverTimestamp } from "firebase/firestore";
 
 const recipeCollectionRef = collection(db, "recipes");
 
 export const createRecipe = async (newRecipe) => {
     try {
-        let result = await addDoc(recipeCollectionRef, newRecipe);
+        let result = await addDoc(recipeCollectionRef,
+            { ...newRecipe, createdOn: serverTimestamp() });
         alert('Recipe created successfully!')
         return result.id;
     } catch (error) {
