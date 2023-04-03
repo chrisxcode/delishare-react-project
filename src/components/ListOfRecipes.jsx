@@ -1,7 +1,11 @@
 import { SingleRecipe } from "./SingleRecipe";
-import styles from "./styles/ListOfRecipes.module.css"
+import styles from "./styles/ListOfRecipes.module.css";
+import { useContext } from "react";
+import { AppContext } from "../App";
 
-export const ListOfRecipes = ({ recipes, themeColors }) => {
+export const ListOfRecipes = () => {
+
+    const { recipes, themeColors } = useContext(AppContext);
 
     return (
         <div className={styles.container}>

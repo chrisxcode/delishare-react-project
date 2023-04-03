@@ -1,0 +1,149 @@
+.container {
+    width: 100%;
+    height: 92vh;
+    display: grid;
+    grid-template-columns: 350px auto;
+    grid-template-rows: 1fr;
+    gap: 30px;
+    padding: 30px;
+}
+
+.sidebar {
+    border-radius: 10px;
+    display: grid;
+    gap: 30px;
+    align-content: center;
+    justify-content: center;
+}
+
+.profile {
+    position: relative;
+    height: 400px;
+    width: 350px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.cover {
+    width: 100%;
+    height: 40%;
+}
+
+.cover_image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-position: center;
+    background-size: cover;
+}
+
+.profile_image {
+    position: absolute;
+    top: 111px;
+    left: 130px;
+    width: 90px;
+    height: 90px;
+    border-radius: 100%;
+    border: solid 2px rgba(255, 255, 255, 0.8);
+    object-fit: cover;
+    background-position: center;
+    background-size: cover;
+}
+
+.user_info {
+    padding: 20px;
+    padding-top: 30px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-top: solid 2px rgba(255, 255, 255, 0.4);
+    height: 45%;
+}
+
+.user_info h2 {
+    margin: 20px 0px 16px 0px;
+}
+
+.activities {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.4);
+    height: 15%;
+    border-top: solid 2px rgba(255, 255, 255, 0.4);
+}
+
+.activity {
+    display: inline-block;
+    width: 33.3%;
+    height: 56px;
+    padding: 13px;
+}
+
+.activity:not(:last-child) {
+    border-right: solid 2px rgba(255, 255, 255, 0.4);
+}
+
+.control_panel {
+    height: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.control_panel ul {
+    height: 100%;
+}
+
+.control_panel li {
+    height: 33%;
+    line-height: 50px;
+    background-color: rgba(255, 255, 255, 0.4);
+    transition: 0.3s;
+}
+
+.control_panel li:not(:last-child) {
+    border-bottom: solid 2px rgba(255, 255, 255, 0.5);
+}
+
+.control_panel li:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: 0.3s;
+}
+
+.follow {
+    height: 50px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.follow ul {
+    height: 100%;
+}
+
+.follow li {
+    height: 100%;
+    line-height: 50px;
+    background-color: rgba(255, 255, 255, 0.4);
+    transition: 0.3s;
+}
+
+.follow li:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: 0.3s;
+}
+
+.main {
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* .navigation {
+    margin-bottom: 10px;
+} */
+
+.navigation li {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px;
+    border: solid 1px white;
+    border-radius: 50px;
+    cursor: pointer;
+}

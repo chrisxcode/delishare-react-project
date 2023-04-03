@@ -1,18 +1,24 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { deleteRecipe } from "../REST/recipes";
 import { auth } from "../config/firebase";
-import styles from "./styles/DetailedRecipe.module.css"
+import styles from "./styles/DetailedRecipe.module.css";
+import { useContext } from "react";
+import { AppContext } from "../App";
 
-export const DetailedRecipe = ({ recipes, setRecipes }) => {
+export const DetailedRecipe = () => {
+
+    const { recipes, setRecipes, users } = useContext(AppContext);
 
     const { recipeId } = useParams();
     const navigate = useNavigate();
 
     let recipe = recipes.find(x => x.id === recipeId);
+    let currentUser = users.find(user => user.userId === recipe.userId);
 
     const deleteConfirmation = async () => {
         if (window.confirm('Are you sure you want to delete this recipe?')) {
-            await deleteRecipe(recipeId);
+            const userId = auth?.currentUser?.uid;
+            await deleteRecipe(userId, recipeId);
             setRecipes(oldRecipes => oldRecipes.filter(x => x.id !== recipeId));
             navigate("/recipes");
         }
@@ -23,7 +29,7 @@ export const DetailedRecipe = ({ recipes, setRecipes }) => {
             <div className={styles.container}>
                 <div className={styles.header}>
                     <h1>{recipe.title}</h1>
-                    <h4>Submitted by Chris</h4>
+                    <h4>Submitted by @{currentUser.username}</h4>
                 </div>
                 <img src={recipe.imageLink} alt="" />
                 <div className={styles.details}>

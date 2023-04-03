@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import styles from "./styles/Header.module.css";
+import { useContext } from "react";
+import { AppContext } from "../App";
 
-export const Header = ({
-    themeColors,
-    loggedStatus
-}) => {
+
+export const Header = ({ userId }) => {
+
+    const { themeColors, loggedStatus } = useContext(AppContext);
 
     return (
         <div className={styles.header} style={{ backgroundColor: themeColors.header }}>
@@ -20,8 +22,8 @@ export const Header = ({
                 </ul>
                 <ul className={styles.profile}>
                     {loggedStatus ?
-                        <li><Link className={styles.user} to="/profile">Profile</Link></li>
-                        : <li><Link className={styles.guest} to="/auth">Login</Link></li>}
+                        <li><Link className={styles.user} to={`/profile/${userId}`}>Profile</Link></li>
+                        : <li><Link className={styles.guest} to="/login">Login</Link></li>}
                 </ul>
             </nav>
         </div>

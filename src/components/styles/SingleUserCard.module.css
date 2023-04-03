@@ -1,0 +1,72 @@
+.card {
+    position: relative;
+    width: 290px;
+    height: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    margin-top: 0px;
+    margin-bottom: 30px;
+    transition: 0.3s;
+}
+
+.cover {
+    width: 100%;
+    height: 40%;
+}
+
+.cover_image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-position: center;
+    background-size: cover;
+}
+
+.profile_image {
+    position: absolute;
+    top: 110px;
+    left: 97px;
+    width: 90px;
+    height: 90px;
+    border-radius: 100%;
+    border: solid 2px rgba(255, 255, 255, 0.8);
+    object-fit: cover;
+    background-position: center;
+    background-size: cover;
+}
+
+.user_info {
+    padding: 20px;
+    padding-top: 30px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-top: solid 2px rgba(255, 255, 255, 0.4);
+    height: 45%;
+}
+
+.user_info h2 {
+    margin: 20px 0px 16px 0px;
+}
+
+.activities {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.4);
+    height: 15%;
+    border-top: solid 2px rgba(255, 255, 255, 0.4);
+}
+
+.activity {
+    display: inline-block;
+    width: 33.3%;
+    height: 56px;
+    padding: 13px;
+}
+
+.activity:not(:last-child) {
+    border-right: solid 2px rgba(255, 255, 255, 0.4);
+}

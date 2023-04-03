@@ -2,9 +2,13 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { createRecipe, editRecipe } from "../REST/recipes";
 import { auth } from "../config/firebase";
-import styles from "./styles/AuthorRecipe.module.css"
+import styles from "./styles/AuthorRecipe.module.css";
+import { useContext } from "react";
+import { AppContext } from "../App";
 
-export const AuthorRecipe = ({ setRecipes, recipes }) => {
+export const AuthorRecipe = () => {
+
+    const { setRecipes, recipes } = useContext(AppContext);
 
     const navigate = useNavigate();
     let { recipeId } = useParams();
@@ -59,6 +63,7 @@ export const AuthorRecipe = ({ setRecipes, recipes }) => {
     }
 
     const createRecipeHandler = async () => {
+        let userId = auth?.currentUser?.uid;
         let recipe = {
             title,
             imageLink,
@@ -67,14 +72,12 @@ export const AuthorRecipe = ({ setRecipes, recipes }) => {
             description,
             ingredients,
             instructions,
-            likes: 0,
-            saves: 0,
-            userId: auth?.currentUser?.uid
+            userId
         }
-        let newRecipeId = await createRecipe(recipe); // Creates recipe and returns new recipe ID
-        setRecipes(oldRecipes => [...oldRecipes, { ...recipe, id: newRecipeId }]);
-        navigate("/recipes");
+        let recipeId = await createRecipe(recipe); // Creates recipe and returns new recipe ID
+        setRecipes(oldRecipes => [...oldRecipes, { ...recipe, id: recipeId }]);
 
+        navigate("/recipes");
     }
 
     const editRecipeHandler = async () => {
@@ -86,8 +89,6 @@ export const AuthorRecipe = ({ setRecipes, recipes }) => {
             description,
             ingredients,
             instructions,
-            likes: 0,
-            saves: 0,
             userId: recipe.userId
         }
         await editRecipe(recipeId, editedRecipe);

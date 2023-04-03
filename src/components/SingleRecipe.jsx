@@ -1,6 +1,5 @@
 import styles from './styles/SingleRecipe.module.css';
 import { Link } from "react-router-dom";
-import { style } from '@mui/system';
 
 export const SingleRecipe = ({ recipe }) => {
 
@@ -19,7 +18,7 @@ export const SingleRecipe = ({ recipe }) => {
             </div>
             <div>
                 <ul>
-                    <li><Link className={styles.details} to={recipe.id}>Details</Link></li>
+                    <li><Link className={styles.details} to={`/recipes/${recipe.id}`}>Details</Link></li>
                 </ul>
             </div>
         </div>

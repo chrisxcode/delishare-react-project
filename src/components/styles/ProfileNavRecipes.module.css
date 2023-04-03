@@ -1,0 +1,29 @@
+.container {
+    display: grid;
+    max-height: 75vh;
+    min-height: 75vh;
+    overflow: scroll;
+}
+
+/* .fade {
+    display: block;
+    position: fixed;
+    width: 70vw;
+    top: 146px;
+    left: 380px;
+    z-index: 2;
+    height: 40px;
+} */
+
+.recipes {
+    display: flex;
+    position: relative;
+    padding: 33px;
+    padding-right: 32px;
+    flex-wrap: wrap;
+    row-gap: 30px;
+    column-gap: 30px;
+    column-gap: 30px;
+    justify-content: center;
+    overflow: scroll;
+}
