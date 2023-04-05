@@ -1,6 +1,6 @@
 import { db } from '../config/firebase';
 import { doc, getDocs, addDoc, updateDoc, deleteDoc, collection, serverTimestamp } from "firebase/firestore";
-import { createRecipeInteractionDoc } from "./recipeInteractions";
+import { createRecipeInteractionDoc, deleteRecipeInteractionDoc } from "./recipeInteractions";
 import { addToAuthored, removeFromAuthored } from "./users"
 
 const recipeCollectionRef = collection(db, "recipes");
@@ -46,9 +46,9 @@ export const deleteRecipe = async (userId, recipeId) => {
     try {
         const recipeDoc = doc(db, "recipes", recipeId);
         await deleteDoc(recipeDoc);
-        alert('Recipe deleted successfully!');
-        // delete recipe interaction doc
+        await deleteRecipeInteractionDoc(recipeId);
         await removeFromAuthored(userId, recipeId);
+        alert('Recipe deleted successfully!');
     } catch (error) {
         alert(error.message)
     }

@@ -1,9 +1,23 @@
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 .wrapper {
     display: flex;
     justify-content: center;
     width: 100%;
     height: 100%;
     overflow: scroll;
+
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
 
 .container {
@@ -119,6 +133,26 @@
 
 .delete:hover {
     background-color: rgb(213, 44, 44);
+}
+
+.author .like:hover,
+.author .liked {
+    background-color: rgba(232, 38, 38, 0.8);
+}
+
+.author .save:hover,
+.author .saved {
+    background-color: rgba(38, 119, 232, 0.6);
+}
+
+.author .liked:hover,
+.author .like {
+    background-color: rgba(80, 80, 80, 0.4);
+}
+
+.author .saved:hover,
+.author .save {
+    background-color: rgba(80, 80, 80, 0.4);
 }
 
 .author button,

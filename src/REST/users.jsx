@@ -26,10 +26,23 @@ export const createUser = async (newUser) => {
     }
 }
 
-export const editUser = async (userId, editedUser) => {
+// export const editUser = async (userId, editedUser) => {
+//     try {
+//         const userDoc = doc(db, "users", userId);
+//         await updateDoc(userDoc, editedUser);
+//         alert('Profile edited successfully!');
+//     } catch (error) {
+//         alert(error.message)
+//     }
+// }
+
+export const editUser = async (userId, updatedInfo, setProfileChange) => {
     try {
-        const userDoc = doc(db, "users", userId);
-        await updateDoc(userDoc, editedUser);
+        const profileOwner = doc(db, "users", userId);
+        await updateDoc(profileOwner, {
+            ...updatedInfo
+        })
+        setProfileChange(state => state + 1);
         alert('Profile edited successfully!');
     } catch (error) {
         alert(error.message)

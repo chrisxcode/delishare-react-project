@@ -20,6 +20,7 @@ import { DetailedRecipe } from './components/DetailedRecipe';
 import { NotFound } from './components/NotFound';
 import { Users } from './components/Users';
 import { Register } from './components/Register';
+import { EditProfile } from './components/EditProfile';
 
 // CONTEXT
 export const AppContext = createContext(null);
@@ -28,6 +29,10 @@ function App() {
 
     // THEME
     const [themeColors, setThemeColors] = useState({ header: "#264653", body: "#2a9d8f" })
+    // const [themeColors, setThemeColors] = useState({ header: "#e76f51", body: "#f4a261" })
+    // const [themeColors, setThemeColors] = useState({ header: "#00111c", body: "#001a2c" })
+    // const [themeColors, setThemeColors] = useState({ header: "#191528", body: "#3c162f" })
+
 
     // USER - Initialize states, which will hold user logged in status and Id
     const [loggedStatus, setLoggedStatus] = useState(auth?.currentUser);
@@ -63,6 +68,11 @@ function App() {
         getRecipesHandler();
     }, []);
 
+    // INTERACTIONS - Set state to register when a profile/recipe information has been changed
+
+    const [profileChange, setProfileChange] = useState(0);
+    const [recipeChange, setRecipeChange] = useState(0);
+
     // RECIPE INTERACTIONS - Create state for recipe interactions
 
     const [recipeInteractions, setRecipeInteractions] = useState([]);
@@ -75,11 +85,7 @@ function App() {
             setRecipeInteractions(all);
         }
         getRecipeInteractions();
-    }, []);
-
-    // USERS & FOLLOWERS - Set state to register when a profile information has been changed
-
-    const [profileChange, setProfileChange] = useState(0);
+    }, [recipeChange]);
 
     // ALL USERS - Create state for all users
 
@@ -93,7 +99,7 @@ function App() {
             setUsers(all);
         }
         getUsers();
-    }, [recipes, profileChange]);
+    }, [recipes, profileChange, recipeChange]);
 
     // FOLLOWERS - Create state for all followers
 
@@ -127,17 +133,25 @@ function App() {
                 <div id='body' style={{ backgroundColor: themeColors.body }}>
 
                     <Routes>
-                        <Route path="/login" element={<Login logIn={logIn} />} />
-                        <Route path="/register" element={<Register signUp={signUp} setUsers={setUsers} />} />
+                        <Route path="/login" element={<Login
+                            logIn={logIn} />} />
+                        <Route path="/register" element={<Register
+                            signUp={signUp}
+                            setUsers={setUsers} />} />
                         <Route path="/recipes" element={<ListOfRecipes />} />
-                        <Route path="/recipes/:recipeId" element={<DetailedRecipe />} />
+                        <Route path="/recipes/:recipeId" element={<DetailedRecipe
+                            setRecipeChange={setRecipeChange} />} />
                         <Route path="/recipes/:recipeId/edit" element={<AuthorRecipe />} />
                         <Route path="/create" element={<AuthorRecipe />} />
+                        <Route path="/profile/:userId/edit" exact element={<EditProfile
+                            followers={followers}
+                            setProfileChange={setProfileChange} />} />
                         <Route path="/profile/:userId/*" element={<Profile
                             followers={followers}
                             setProfileChange={setProfileChange}
                             logout={logout} />} />
-                        <Route path="/users" element={<Users followers={followers} />} />
+                        <Route path="/users" element={<Users
+                            followers={followers} />} />
                         <Route path="*" element={<NotFound />} />
                         <Route path="/" exact element={<Home />} />
                     </Routes>

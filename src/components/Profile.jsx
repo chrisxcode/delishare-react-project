@@ -2,7 +2,7 @@ import styles from "./styles/Profile.module.css"
 
 import { useContext, useState } from "react";
 import { ProfileNavigation } from "./ProfileNavigation"
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { AppContext } from "../App";
 import { addFollower, removeFollower } from "../REST/users";
 
@@ -15,6 +15,7 @@ export const Profile = ({
     const { setLoggedStatus, themeColors, recipes, currentUserId, setCurrentUserId, users } = useContext(AppContext);
 
     const { userId } = useParams();
+    const navigate = useNavigate();
 
     const currentUser = users.find(x => x.userId === userId);
 
@@ -39,6 +40,10 @@ export const Profile = ({
         setFollowed(false);
     }
 
+    const editProfileHandler = () => {
+        navigate("edit");
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.sidebar}>
@@ -60,7 +65,7 @@ export const Profile = ({
                         {isThisMyProfile ?
                             <div className={styles.control_panel}>
                                 <ul>
-                                    <li>Edit Profile</li>
+                                    <li onClick={editProfileHandler}>Edit Profile</li>
                                     <li>Change theme</li>
                                     <li onClick={logOutHandler}>Logout</li>
                                 </ul>
@@ -82,7 +87,7 @@ export const Profile = ({
 
             <div className={styles.main}>
                 <div className={styles.navigation}>
-                    <ul>
+                    <ul className={styles.links}>
                         <li><Link className={styles.link} to="authored">authored</Link></li>
                         <li><Link className={styles.link} to="liked">liked</Link></li>
                         <li><Link className={styles.link} to="saved">saved</Link></li>

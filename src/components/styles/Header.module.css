@@ -51,38 +51,28 @@
     padding: 10px 15px 10px 20px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    border: 2px solid white;
     transition: 0.3s;
 }
 
+.guest:hover,
 .user:hover {
-    background-color: rgb(242, 101, 101);
     padding: 10px 30px 10px 40px;
     transition: 0.3s;
-}
-
-.guest:hover {
-    background-color: rgb(97, 122, 147);
-    padding: 10px 30px 10px 40px;
-    transition: 0.3s;
-}
-
-.user {
-    background-color: lightcoral;
-
 }
 
 .guest {
-    background-color: lightslategray;
+    background-color: transparent;
 }
 
 .link {
-    background-color: rgba(119, 136, 153, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     padding: 10px 20px;
     transition: 0.3s;
 }
 
 .link:hover {
-    background-color: rgba(119, 136, 153, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
     padding: 10px 40px;
     transition: 0.3s;
 }

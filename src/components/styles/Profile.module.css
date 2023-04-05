@@ -1,3 +1,13 @@
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 .container {
     width: 100%;
     height: 92vh;
@@ -6,6 +16,10 @@
     grid-template-rows: 1fr;
     gap: 30px;
     padding: 30px;
+
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
 
 .sidebar {
@@ -135,15 +149,23 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* .navigation {
+/* .links {
     margin-bottom: 10px;
 } */
 
-.navigation li {
+.links li {
     display: inline-block;
+    margin: 10px 20px;
+}
+
+.link {
+    display: inline-block;
+    color: #fff;
     padding: 10px 20px;
-    margin: 20px;
     border: solid 1px white;
-    border-radius: 50px;
+    outline: none;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
     cursor: pointer;
 }

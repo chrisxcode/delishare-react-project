@@ -10,17 +10,22 @@ export const ProfileNavRecipes = ({
 
     const { recipes, themeColors, userId, currentUser } = useContext(ProfileNavContext);
 
-    let ListOfRecipes = [];
+    let listOfRecipes = [];
 
     switch (sortBy) {
         case "authored":
-            ListOfRecipes = currentUser.authored;
+            listOfRecipes = currentUser.authored;
             break;
         case "liked":
-            ListOfRecipes = currentUser.liked;
+            listOfRecipes = currentUser.liked;
             break;
         case "saved":
-            ListOfRecipes = currentUser.saved;
+            listOfRecipes = currentUser.saved;
+            break;
+        case "following":
+            listOfRecipes = recipes
+                .filter(recipe => currentUser.following.includes(recipe.userId))
+                .map(x => x.id);
             break;
         default:
             break;
@@ -29,21 +34,20 @@ export const ProfileNavRecipes = ({
     return (
         <div className={styles.container}>
             <div className={styles.recipes}>
-                {/* <div className={styles.fade} style={{ backgroundImage: `linear-gradient(${themeColors.body}, transparent)` }}></div> */}
-                {ListOfRecipes.length > 0
-                    ?
-                    recipes.map(recipe => {
-                        if (sortBy !== "following") {
-                            return (ListOfRecipes.includes(recipe.id) ? <SingleRecipe key={recipe.id} recipe={recipe} /> : null)
-                        } else {
-                            return (currentUser.following.includes(recipe.userId) ? <SingleRecipe key={recipe.id} recipe={recipe} /> : null)
-                        }
-
-                    }
-
-                    )
-                    :
-                    <p>No recipes yet</p>
+                {
+                    listOfRecipes.length > 0
+                        ?
+                        listOfRecipes.map(recipe => {
+                            let currentRecipe = recipes.find(x => x.id === recipe);
+                            console.log(currentRecipe);
+                            if (currentRecipe) {
+                                return <SingleRecipe key={currentRecipe.id} recipe={currentRecipe} />
+                            } else {
+                                listOfRecipes = listOfRecipes.filter(x => x.id !== recipe);
+                            }
+                        })
+                        :
+                        <p>No recipes yet</p>
                 }
             </div>
         </div>
