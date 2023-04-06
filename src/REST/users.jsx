@@ -20,21 +20,10 @@ export const createUser = async (newUser) => {
         const userDoc = doc(db, "users", newUser.userId);
         await setDoc(userDoc,
             { ...newUser, memberSince: serverTimestamp() });
-        alert('Profile created successfully!');
     } catch (error) {
         alert(error.message)
     }
 }
-
-// export const editUser = async (userId, editedUser) => {
-//     try {
-//         const userDoc = doc(db, "users", userId);
-//         await updateDoc(userDoc, editedUser);
-//         alert('Profile edited successfully!');
-//     } catch (error) {
-//         alert(error.message)
-//     }
-// }
 
 export const editUser = async (userId, updatedInfo, setProfileChange) => {
     try {
@@ -43,7 +32,6 @@ export const editUser = async (userId, updatedInfo, setProfileChange) => {
             ...updatedInfo
         })
         setProfileChange(state => state + 1);
-        alert('Profile edited successfully!');
     } catch (error) {
         alert(error.message)
     }
@@ -59,7 +47,6 @@ export const addToAuthored = async (userId, recipeId) => {
 
             await updateDoc(userDocRef, newUserInfo);
 
-            alert('Recipe added to authored successfully!');
         } else {
             alert('The author does not exist');
         }
@@ -81,8 +68,6 @@ export const removeFromAuthored = async (userId, recipeId) => {
             };
 
             await updateDoc(userDocRef, newUserInfo);
-
-            alert('Recipe removed from authored successfully!');
         } else {
             alert('The author does not exist');
         }
@@ -96,7 +81,6 @@ export const createFollowers = async (userId) => {
     try {
         const followersDoc = doc(db, "followers", userId);
         await setDoc(followersDoc, { followers: [] });
-        alert('Followers tracker created successfully!');
     } catch (error) {
         alert(error.message)
     }
@@ -126,8 +110,6 @@ export const addFollower = async (profileId, followerId, setProfileChange) => {
         })
 
         setProfileChange(x => x + 1);
-
-        alert('Follow added successfully!');
     } catch (error) {
         alert(error.message)
     }
@@ -146,8 +128,6 @@ export const removeFollower = async (profileId, followerId, setProfileChange) =>
         })
 
         setProfileChange(x => x + 1);
-
-        alert('Follow removed successfully!');
     } catch (error) {
         alert(error.message)
     }

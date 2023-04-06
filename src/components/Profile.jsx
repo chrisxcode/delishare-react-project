@@ -12,6 +12,9 @@ export const Profile = ({
     logout
 }) => {
 
+    const [loading, setLoading] = useState(false);
+
+
     const { setLoggedStatus, themeColors, recipes, currentUserId, setCurrentUserId, users } = useContext(AppContext);
 
     const { userId } = useParams();
@@ -19,10 +22,10 @@ export const Profile = ({
 
     const currentUser = users.find(x => x.userId === userId);
 
-    const userFollowersObj = followers.find(x => x.userId === userId);
-    const userFollowers = userFollowersObj.followers;
+    const userFollowersObj = followers?.find(x => x.userId === userId);
+    const userFollowers = userFollowersObj?.followers;
 
-    const isThisMyProfile = currentUser.userId === currentUserId;
+    const isThisMyProfile = currentUser?.userId === currentUserId;
 
     const [followed, setFollowed] = useState(userFollowers.includes(currentUserId));
 

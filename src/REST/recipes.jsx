@@ -20,7 +20,6 @@ export const createRecipe = async (newRecipe) => {
     try {
         let result = await addDoc(recipeCollectionRef,
             { ...newRecipe, createdOn: serverTimestamp() });
-        alert('Recipe created successfully!')
 
         await createRecipeInteractionDoc(result.id);
 
@@ -36,7 +35,6 @@ export const editRecipe = async (recipeId, editedRecipe) => {
     try {
         const recipeDoc = doc(db, "recipes", recipeId);
         await updateDoc(recipeDoc, editedRecipe);
-        alert('Recipe edited successfully!');
     } catch (error) {
         alert(error.message)
     }
@@ -48,7 +46,6 @@ export const deleteRecipe = async (userId, recipeId) => {
         await deleteDoc(recipeDoc);
         await deleteRecipeInteractionDoc(recipeId);
         await removeFromAuthored(userId, recipeId);
-        alert('Recipe deleted successfully!');
     } catch (error) {
         alert(error.message)
     }

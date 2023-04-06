@@ -39,7 +39,6 @@ export const ProfileNavRecipes = ({
                         ?
                         listOfRecipes.map(recipe => {
                             let currentRecipe = recipes.find(x => x.id === recipe);
-                            console.log(currentRecipe);
                             if (currentRecipe) {
                                 return <SingleRecipe key={currentRecipe.id} recipe={currentRecipe} />
                             } else {

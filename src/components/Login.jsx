@@ -7,13 +7,25 @@ export const Login = ({
     logIn
 }) => {
 
+    const [loading, setLoading] = useState(false);
+
     const { setLoggedStatus } = useContext(AppContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const logInHandler = () => {
-        logIn(email, password, setLoggedStatus);
+    const [validCredentials, setValidCredentials] = useState(true);
+
+    const logInHandler = async () => {
+        setLoading(true);
+        try {
+            await logIn(email, password, setLoggedStatus);
+        } catch {
+            setValidCredentials(false);
+            setLoading(false);
+        }
+
+
     }
 
     const navigate = useNavigate();
@@ -24,19 +36,27 @@ export const Login = ({
 
     return (
         <div className={styles.wrapper}>
-            <div className={styles.container}>
-                <div className={styles.input_fields}>
-                    <label htmlFor="email">Email</label>
-                    <input id='email' onChange={(e) => setEmail(e.target.value)} value={email} />
-                    <label htmlFor="password">Password</label>
-                    <input type='password' onChange={(e) => setPassword(e.target.value)} value={password} />
-                </div>
-                <div className={styles.actions}>
-                    <button className={styles.login} onClick={logInHandler}>Login</button>
-                    <p>Don't have an account?</p>
-                    <button className={styles.register} onClick={navigateToRegister}>Click here to register!</button>
-                </div>
-            </div>
+            {loading ?
+                (<div className='loaderWrapper'>
+                    <span className="loader"></span>
+                </div>)
+                : (<div className={styles.container}>
+                    <div className={styles.input_fields}>
+                        <label htmlFor="email">Email</label>
+                        <input id='email' onChange={(e) => setEmail(e.target.value)} value={email} />
+                        <label htmlFor="password">Password</label>
+                        <input type='password' onChange={(e) => setPassword(e.target.value)} value={password} />
+                    </div>
+                    <div className={validCredentials ? styles.valid : styles.invalid}>
+                        <p>Incorrect email or password.</p>
+                    </div>
+                    <div className={styles.actions}>
+                        <button className={styles.login} onClick={logInHandler}>Login</button>
+                        <p>Don't have an account?</p>
+                        <button className={styles.register} onClick={navigateToRegister}>Click here to register!</button>
+                    </div>
+                </div>)}
+
         </div>
     );
 

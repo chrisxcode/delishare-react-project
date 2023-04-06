@@ -113,7 +113,7 @@ function App() {
             setFollowers(all);
         }
         getFollowers();
-    }, [profileChange]);
+    }, [profileChange, loggedStatus]);
 
     return (
         <AppContext.Provider value={{
@@ -128,7 +128,7 @@ function App() {
         }}>
             <div className="App">
 
-                <Header userId={auth?.currentUser?.uid} />
+                <Header userId={currentUserId} />
 
                 <div id='body' style={{ backgroundColor: themeColors.body }}>
 

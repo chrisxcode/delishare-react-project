@@ -19,7 +19,6 @@ export const createRecipeInteractionDoc = async (recipeId) => {
         const recipeInteractionDoc = doc(db, "recipeInteractions", recipeId);
         await setDoc(recipeInteractionDoc,
             { recipeId, likedBy: [], savedBy: [], authorId: auth?.currentUser?.uid });
-        alert('InteractionDoc created successfully!')
     } catch (error) {
         alert(error.message);
     }
@@ -29,7 +28,6 @@ export const deleteRecipeInteractionDoc = async (recipeId) => {
     try {
         const recipeInteractionDoc = doc(db, "recipeInteractions", recipeId);
         await deleteDoc(recipeInteractionDoc);
-        alert('InteractionDoc deleted successfully!');
     } catch (error) {
         alert(error.message)
     }

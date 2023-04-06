@@ -8,6 +8,8 @@ export const Register = ({
     setUsers
 }) => {
 
+    const [loading, setLoading] = useState(false);
+
     const { setLoggedStatus } = useContext(AppContext);
 
     const [email, setEmail] = useState('');
@@ -15,7 +17,68 @@ export const Register = ({
     const [confirmPassword, setConfirmPassword] = useState('');
     const [description, setDescription] = useState('');
 
-    const signUpHandler = async () => {
+    const [validation, setValidation] = useState({
+        email: true,
+        password: true,
+        confirmPassword: true,
+        description: true
+    });
+
+    let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+
+    const emailValidation = () => {
+        if (regex.test(email)) {
+            setValidation(state => ({ ...state, email: true }))
+            return true;
+        } else {
+            setValidation(state => ({ ...state, email: false }))
+            return false;
+        }
+    }
+
+    const passwordValidation = () => {
+        if (password.length >= 6) {
+            setValidation(state => ({ ...state, password: true }))
+            return true;
+        } else {
+            setValidation(state => ({ ...state, password: false }))
+            return false;
+        }
+    }
+
+    const confirmPasswordValidation = () => {
+        if (password === confirmPassword && confirmPassword !== "" && confirmPassword.length >= 6) {
+            setValidation(state => ({ ...state, confirmPassword: true }))
+            return true;
+        } else {
+            setValidation(state => ({ ...state, confirmPassword: false }))
+            return false;
+        }
+    }
+
+    const descriptionValidation = () => {
+        if (description.length >= 30 && description.length <= 138) {
+            setValidation(state => ({ ...state, description: true }))
+            return true;
+        } else {
+            setValidation(state => ({ ...state, description: false }));
+            return false;
+        }
+    }
+
+    const registerHandler = () => {
+        let isEmailValid = emailValidation();
+        let isPasswordValid = passwordValidation();
+        let isConfirmPasswordValid = confirmPasswordValidation();
+        let isDescriptionValid = descriptionValidation();
+
+        if (isEmailValid && isPasswordValid && isConfirmPasswordValid && isDescriptionValid) {
+            createAccount();
+        }
+    }
+
+    const createAccount = async () => {
+        setLoading(true);
         let newUser = {
             email,
             username: email.split("@")[0],
@@ -30,6 +93,7 @@ export const Register = ({
         }
         let userId = await signUp(email, password, newUser, setLoggedStatus);
         setUsers(oldUsers => [...oldUsers, { ...newUser, userId }])
+        setLoading(false);
     }
 
     const navigate = useNavigate();
@@ -41,23 +105,52 @@ export const Register = ({
     return (
 
         <div className={styles.wrapper}>
-            <div className={styles.container}>
-                <div className={styles.input_fields}>
-                    <label htmlFor="email">Email</label>
-                    <input id='email' onChange={(e) => setEmail(e.target.value)} value={email} />
-                    <label htmlFor="password">Password</label>
-                    <input type='password' onChange={(e) => setPassword(e.target.value)} value={password} />
-                    <label htmlFor="confirm">Confirm Password:</label>
-                    <input id="confirm" type='password' onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} />
-                    <label htmlFor="description">Tell us about yourself!</label>
-                    <textarea name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description} ></textarea>
-                </div>
-                <div className={styles.actions}>
-                    <button className={styles.register} onClick={signUpHandler}>Register</button>
-                    <p>Already have an account?</p>
-                    <button className={styles.login} onClick={navigateToLogin}>Click here to login!</button>
-                </div>
-            </div>
+            {loading
+                ?
+                (<div className='loaderWrapper'>
+                    <span className="loader"></span>
+                </div>)
+                :
+                (<div className={styles.container}>
+                    <div className={styles.input_fields}>
+                        <label htmlFor="email">Email</label>
+                        {!validation.email && <p>(Must be a valid email)</p>}
+                        <input id='email'
+                            className={validation.email ? null : styles.wrong}
+                            onBlur={() => emailValidation()}
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email} />
+                        <label htmlFor="password">Password</label>
+                        {!validation.password && <p>(Password is too short)</p>}
+                        <input type='password'
+                            className={validation.password ? null : styles.wrong}
+                            onBlur={() => passwordValidation()}
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password} />
+                        <label htmlFor="confirm">Confirm Password:</label>
+                        {!validation.confirmPassword && <p>(Passwords must match)</p>}
+                        <input id="confirm" type='password'
+                            className={validation.confirmPassword ? null : styles.wrong}
+                            onBlur={() => confirmPasswordValidation()}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            value={confirmPassword} />
+                        <label htmlFor="description">Tell us about yourself!</label>
+                        {(!validation.description && description.length < 30) && <p>
+                            (Description is too short)</p>}
+                        {(!validation.description && description.length > 138) && <p>(Description is too long)</p>}
+                        <textarea name="description" id="description"
+                            className={validation.description ? null : styles.wrong}
+                            onBlur={() => descriptionValidation()}
+                            onChange={(e) => setDescription(e.target.value)}
+                            value={description} ></textarea>
+                    </div>
+                    <div className={styles.actions}>
+                        <button className={styles.register} onClick={() => registerHandler()}>Register</button>
+                        <p>Already have an account?</p>
+                        <button className={styles.login} onClick={navigateToLogin}>Click here to login!</button>
+                    </div>
+                </div>)}
+
         </div>
     );
 

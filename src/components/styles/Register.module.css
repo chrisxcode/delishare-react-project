@@ -35,7 +35,7 @@
 .input_fields {
     display: inline-block;
     height: 200px;
-    width: 300px;
+    width: 340px;
     margin-right: 0px;
 }
 
@@ -97,4 +97,13 @@
 
 .login:hover {
     background-color: transparent;
+}
+
+.wrong {
+    border: solid 2px red;
+}
+
+.input_fields p {
+    color: red;
+    margin-left: 10px;
 }

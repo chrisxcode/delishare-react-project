@@ -11,7 +11,7 @@ export const Users = ({
     const [search, setSearch] = useState("");
 
     return (
-        <div>
+        <div className={styles.wrapper}>
             <div className={styles.search}>
                 <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search users" />
             </div>
