@@ -27,6 +27,7 @@
 .logo {
     width: 150px;
     justify-content: left;
+    color: inherit;
 }
 
 .profile {
@@ -37,7 +38,7 @@
 .user,
 .guest,
 .link {
-    color: #fff;
+    color: inherit;
     border: none;
     outline: none;
     border-radius: 20px;
@@ -51,7 +52,7 @@
     padding: 10px 15px 10px 20px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    border: 2px solid white;
+    border: 2px solid;
     transition: 0.3s;
 }
 

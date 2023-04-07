@@ -91,9 +91,17 @@ export const Register = ({
             liked: [],
             following: []
         }
-        let userId = await signUp(email, password, newUser, setLoggedStatus);
-        setUsers(oldUsers => [...oldUsers, { ...newUser, userId }])
-        setLoading(false);
+        try {
+            let userId = await signUp(email, password, newUser);
+            setUsers(oldUsers => [...oldUsers, { ...newUser, userId }])
+            navigate("/success")
+            setTimeout(() => {
+                setLoggedStatus(true);
+                navigate('/');
+            }, 2000);
+        } catch (error) {
+            alert(error.message)
+        }
     }
 
     const navigate = useNavigate();

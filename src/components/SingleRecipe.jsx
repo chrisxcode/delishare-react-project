@@ -1,7 +1,11 @@
+import { useContext } from 'react';
 import styles from './styles/SingleRecipe.module.css';
 import { useNavigate } from "react-router-dom";
+import { AppContext } from '../App';
 
 export const SingleRecipe = ({ recipe }) => {
+
+    const { themeColors } = useContext(AppContext);
 
     const navigate = useNavigate();
 
@@ -17,10 +21,13 @@ export const SingleRecipe = ({ recipe }) => {
             <div className={styles.bg_image} style={{ backgroundImage: `url(${recipe.imageLink})` }}>
 
             </div>
-            <div className={styles.information}>
-                <p>Prep time: {recipe.prepTime} minutes</p>
-                <p>Difficulty: {recipe.difficulty}</p>
-                <p>{recipe.description}</p>
+            <div className={styles.information + " " + themeColors.primary}>
+                <div className={styles.information_wrapper}>
+                    <p className={styles.prep_time}>{recipe.prepTime} minutes</p>
+                    <p className={styles.difficulty}>{recipe.difficulty}</p>
+                    <p className={styles.description}>{recipe.description}</p>
+                </div>
+
             </div>
         </div>
     )

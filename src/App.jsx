@@ -21,75 +21,95 @@ import { NotFound } from './components/NotFound';
 import { Users } from './components/Users';
 import { Register } from './components/Register';
 import { EditProfile } from './components/EditProfile';
+import { Success } from './components/Success';
+import { ChangeTheme } from './components/ChangeTheme';
 
 // CONTEXT
 export const AppContext = createContext(null);
 
 function App() {
 
+    const themes = {
+        blue: {
+            name: "blue",
+            primary: "bluePrimary",
+            secondary: "blueSecondary",
+            gradient: "blueGradient",
+            opacity: "blueOpacity",
+            text: "white"
+        },
+        green: {
+            name: "green",
+            primary: "greenPrimary",
+            secondary: "greenSecondary",
+            gradient: "greenGradient",
+            opacity: "greenOpacity",
+            text: "#ede0e3"
+        },
+        orange: {
+            name: "orange",
+            primary: "orangePrimary",
+            secondary: "orangeSecondary",
+            gradient: "orangeGradient",
+            opacity: "orangeOpacity",
+            text: "#ede0e3"
+        },
+        dark: {
+            name: "dark",
+            primary: "darkPrimary",
+            secondary: "darkSecondary",
+            gradient: "darkGradient",
+            opacity: "darkOpacity",
+            text: "#b7aeb2"
+        },
+        purple: {
+            name: "purple",
+            primary: "purplePrimary",
+            secondary: "purpleSecondary",
+            gradient: "purpleGradient",
+            opacity: "purpleOpacity",
+            text: "#f5eff7"
+        },
+        gold: {
+            name: "gold",
+            primary: "goldPrimary",
+            secondary: "goldSecondary",
+            gradient: "goldGradient",
+            opacity: "goldOpacity",
+            text: "#f5eff7"
+        }
+    }
+
     // THEME
-    const [themeColors, setThemeColors] = useState({ header: "#264653", body: "#2a9d8f" })
+
     // const [themeColors, setThemeColors] = useState({ header: "#e76f51", body: "#f4a261" })
     // const [themeColors, setThemeColors] = useState({ header: "#00111c", body: "#001a2c" })
     // const [themeColors, setThemeColors] = useState({ header: "#191528", body: "#3c162f" })
 
+    // FOLLOWERS - Create state for all followers
+
+    const [followers, setFollowers] = useState([]);
+
 
     // USER - Initialize states, which will hold user logged in status and Id
     const [loggedStatus, setLoggedStatus] = useState(auth?.currentUser);
-    const [currentUserId, setCurrentUserId] = useState(auth?.currentUser?.uid)
-
-    useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                setLoggedStatus(auth?.currentUser);
-                setCurrentUserId(auth?.currentUser?.uid)
-            }
-        });
-    }, []);
-
-
-    // USER - Redirect to Home page when user logs in/out
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        navigate("/");
-    }, [loggedStatus]);
-
-    // RECIPES - Create state for recipe collection
-    const [recipes, setRecipes] = useState([]);
-
-    // RECIPES - Fetch recipe data and save it in the recipe state
-
-    useEffect(() => {
-        const getRecipesHandler = async () => {
-            let all = await getAllRecipes();
-            setRecipes(all);
-        }
-        getRecipesHandler();
-    }, []);
+    const [currentUserId, setCurrentUserId] = useState(auth?.currentUser?.uid);
+    const [loggedInUser, setLoggedInUser] = useState({});
 
     // INTERACTIONS - Set state to register when a profile/recipe information has been changed
 
     const [profileChange, setProfileChange] = useState(0);
     const [recipeChange, setRecipeChange] = useState(0);
 
-    // RECIPE INTERACTIONS - Create state for recipe interactions
-
     const [recipeInteractions, setRecipeInteractions] = useState([]);
 
-    // RECIPE INTERACTIONS - Fetch recipe interaction data and save it in the recipe interactions state
-
-    useEffect(() => {
-        const getRecipeInteractions = async () => {
-            let all = await getAllRecipeInteractions();
-            setRecipeInteractions(all);
-        }
-        getRecipeInteractions();
-    }, [recipeChange]);
+    // RECIPES - Create state for recipe collection
+    const [recipes, setRecipes] = useState([]);
 
     // ALL USERS - Create state for all users
 
     const [users, setUsers] = useState([]);
+    const [themeColors, setThemeColors] = useState(themes[loggedInUser?.theme] || themes.orange);
 
     // ALL USERS - Fetch all users data and save it in the users state
 
@@ -99,13 +119,43 @@ function App() {
             setUsers(all);
         }
         getUsers();
+
     }, [recipes, profileChange, recipeChange]);
 
-    // FOLLOWERS - Create state for all followers
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                setLoggedStatus(auth?.currentUser);
+                setCurrentUserId(auth?.currentUser?.uid);
+                setLoggedInUser(users?.find(x => x.userId === currentUserId))
+                setThemeColors(themes[loggedInUser?.theme] || themes.orange);
+            } else {
+                setThemeColors(themes.orange);
+            }
+        });
+    }, [users, currentUserId, loggedInUser]);
 
-    const [followers, setFollowers] = useState([]);
+    useEffect(() => {
 
-    // FOLLOWERS - Fetch all followers data and save it in the followers state
+    }, [users, currentUserId, loggedStatus, loggedInUser])
+
+    useEffect(() => {
+        const getRecipesHandler = async () => {
+            let all = await getAllRecipes();
+            setRecipes(all);
+        }
+        getRecipesHandler();
+    }, []);
+
+
+    useEffect(() => {
+        const getRecipeInteractions = async () => {
+            let all = await getAllRecipeInteractions();
+            setRecipeInteractions(all);
+        }
+        getRecipeInteractions();
+    }, [recipeChange]);
+
 
     useEffect(() => {
         const getFollowers = async () => {
@@ -126,11 +176,11 @@ function App() {
             setCurrentUserId,
             users
         }}>
-            <div className="App">
+            <div className="App" style={{ color: themeColors.text }}>
 
                 <Header userId={currentUserId} />
 
-                <div id='body' style={{ backgroundColor: themeColors.body }}>
+                <div id='body' className={themeColors.gradient} >
 
                     <Routes>
                         <Route path="/login" element={<Login
@@ -146,6 +196,10 @@ function App() {
                         <Route path="/profile/:userId/edit" exact element={<EditProfile
                             followers={followers}
                             setProfileChange={setProfileChange} />} />
+                        <Route path="/profile/:userId/theme" exact element={<ChangeTheme
+                            themes={themes}
+                            setThemeColors={setThemeColors}
+                            setProfileChange={setProfileChange} />} />
                         <Route path="/profile/:userId/*" element={<Profile
                             followers={followers}
                             setProfileChange={setProfileChange}
@@ -154,6 +208,7 @@ function App() {
                             followers={followers} />} />
                         <Route path="*" element={<NotFound />} />
                         <Route path="/" exact element={<Home />} />
+                        <Route path="/success" element={<Success />} />
                     </Routes>
 
                 </div>

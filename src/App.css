@@ -35,7 +35,7 @@ li {
 
 a {
   text-decoration: none;
-  color: #fff;
+  color: inherit;
   font-size: 1rem;
 }
 
@@ -71,7 +71,7 @@ input:-webkit-autofill:active {
 
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.3);
   opacity: 1;
   /* Firefox */
 }
@@ -79,7 +79,7 @@ input:-webkit-autofill:active {
 .loaderWrapper {
   opacity: 1;
   width: 100%;
-  height: 100%;
+  height: 92vh;
   position: absolute;
 }
 
@@ -90,8 +90,8 @@ input:-webkit-autofill:active {
   transform: translate(-50%, -50%) rotateZ(45deg);
   perspective: 1000px;
   border-radius: 50%;
-  width: 48px;
-  height: 48px;
+  width: 100px;
+  height: 100px;
   color: #fff;
 }
 
@@ -110,7 +110,7 @@ input:-webkit-autofill:active {
 }
 
 .loader:after {
-  color: #FF3D00;
+  color: #3e3e3e;
   transform: rotateY(70deg);
   animation-delay: .4s;
 }
@@ -169,4 +169,121 @@ input:-webkit-autofill:active {
   87% {
     box-shadow: .2em -.2em 0 0 currentcolor;
   }
+}
+
+.input,
+.textarea {
+  color: inherit;
+}
+
+/* THEMES */
+
+/* GREEN */
+
+.greenPrimary {
+  background-color: #1b4332;
+  transition: 0.5s;
+}
+
+.greenSecondary {
+  background-color: #40916c;
+  transition: 0.5s;
+}
+
+.greenGradient {
+  background: linear-gradient(150deg, #6bcca0 0%, #40916c 100%);
+  transition: 0.5s;
+}
+
+.greenOpacity {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: 0.5s;
+}
+
+/* BLUE */
+
+.bluePrimary {
+  background-color: #263653;
+  transition: 0.5s;
+}
+
+.blueSecondary {
+  background-color: #2a799d;
+  transition: 0.5s;
+}
+
+.blueGradient {
+  background: linear-gradient(150deg, #2a7b9d 0%, #18487e 100%);
+  transition: 0.5s;
+}
+
+.blueOpacity {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: 0.5s;
+}
+
+/* DARK */
+
+.darkPrimary {
+  background-color: #181818;
+  transition: 0.5s;
+}
+
+.darkSecondary {
+  background-color: #0c1821;
+  transition: 0.5s;
+}
+
+.darkGradient {
+  background: linear-gradient(150deg, #040404 0%, #161616 100%);
+  transition: 0.5s;
+}
+
+.darkOpacity {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: 0.5s;
+}
+
+/* GOLD */
+
+.goldPrimary {
+  background-color: #242423;
+  transition: 0.5s;
+}
+
+.goldSecondary {
+  background-color: #f77f00;
+  transition: 0.5s;
+}
+
+.goldGradient {
+  background: linear-gradient(150deg, #ef6917 0%, #ffc587 100%);
+  transition: 0.5s;
+}
+
+.goldOpacity {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: 0.5s;
+}
+
+/* PURPLE */
+
+.purplePrimary {
+  background-color: #3c096c;
+  transition: 0.5s;
+}
+
+.purpleSecondary {
+  background-color: #8b2ed7;
+  transition: 0.5s;
+}
+
+.purpleGradient {
+  background: linear-gradient(35deg, #d4a3fa 0%, #9d4edd 100%);
+  transition: 0.5s;
+}
+
+.purpleOpacity {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: 0.5s;
 }

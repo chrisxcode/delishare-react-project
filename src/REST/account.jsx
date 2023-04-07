@@ -7,7 +7,7 @@ import {
 import { createFollowers, createUser } from './users';
 
 
-export const signUp = async (email, password, newUser, setLoggedStatus) => {
+export const signUp = async (email, password, newUser) => {
     try {
         await createUserWithEmailAndPassword(auth, email, password);
 
@@ -17,30 +17,30 @@ export const signUp = async (email, password, newUser, setLoggedStatus) => {
 
         await createFollowers(userId);
 
-        alert('Registration successful!')
-
-        setLoggedStatus(true);
+        localStorage.setItem("userId", userId);
 
     } catch (error) {
-        alert(error.message)
+        throw new Error(error.message);
     }
 }
 
-export const logIn = async (email, password, setLoggedStatus) => {
+export const logIn = async (email, password) => {
     try {
         await signInWithEmailAndPassword(auth, email, password);
-        setLoggedStatus(true);
+
+        localStorage.setItem("userId", auth?.currentUser?.uid);
+
     } catch (error) {
-        throw new Error;
+        throw new Error(error.message);
     }
 }
 
-export const logout = async (setLoggedStatus, setCurrentUserId) => {
+export const logout = async () => {
     try {
         await signOut(auth);
-        setLoggedStatus(false);
-        setCurrentUserId(null)
+
+        localStorage.removeItem("userId");
     } catch (error) {
-        alert(error.message)
+        throw new Error(error.message);
     }
 }

@@ -8,7 +8,9 @@ import { AppContext } from "../App";
 
 export const AuthorRecipe = () => {
 
-    const { setRecipes, recipes } = useContext(AppContext);
+    const [loading, setLoading] = useState(false);
+
+    const { setRecipes, recipes, themeColors } = useContext(AppContext);
 
     const navigate = useNavigate();
     let { recipeId } = useParams();
@@ -63,6 +65,7 @@ export const AuthorRecipe = () => {
     }
 
     const createRecipeHandler = async () => {
+        setLoading(true)
         let userId = auth?.currentUser?.uid;
         let recipe = {
             title,
@@ -76,11 +79,15 @@ export const AuthorRecipe = () => {
         }
         let recipeId = await createRecipe(recipe); // Creates recipe and returns new recipe ID
         setRecipes(oldRecipes => [...oldRecipes, { ...recipe, id: recipeId }]);
-
-        navigate("/recipes");
+        navigate('/success')
+        setTimeout(() => {
+            navigate(`/recipes/${recipeId}`);
+        }, 2000);
+        setLoading(false);
     }
 
     const editRecipeHandler = async () => {
+        setLoading(true);
         let editedRecipe = {
             title,
             imageLink,
@@ -94,100 +101,107 @@ export const AuthorRecipe = () => {
         await editRecipe(recipeId, editedRecipe);
         setRecipes(oldRecipes => oldRecipes.filter(x => x.id !== recipeId));
         setRecipes(oldRecipes => [...oldRecipes, { ...editedRecipe, id: recipeId }]);
-        navigate(`/recipes/${recipeId}`);
+        navigate('/success')
+        setTimeout(() => {
+            navigate(`/recipes/${recipeId}`);
+        }, 2000);
     }
 
     return (
 
         <div className={styles.wrapper}>
-            <div className={styles.container}>
-                <h1>{recipeId ? "Edit recipe" : "Create new recipe!"}</h1>
-                <div className={styles.header}>
+            {loading ?
+                (<div className='loaderWrapper'>
+                    <span className="loader"></span>
+                </div>)
+                : (<div className={styles.container + " " + themeColors.opacity}>
+                    <h1>{recipeId ? "Edit recipe" : "Create new recipe!"}</h1>
+                    <div className={styles.header + " " + themeColors.primary}>
 
-                    <textarea type="text" placeholder="Recipe title" onChange={(e) => setTitle(e.target.value)} value={title} />
-                </div>
-
-                <div className={styles.description}>
-                    <h2>Description</h2>
-                    <textarea type="text" placeholder="A very easy and sweet recipe!"
-                        onChange={(e) => setDescription(e.target.value)}
-                        value={description} />
-                </div>
-
-                <div className={styles.image}>
-                    <img src={imageLink} alt="" />
-                    <h2>Image link</h2>
-                    <input type="text" placeholder="http://google.com/image.jpg" onChange={(e) => setImageLink(e.target.value)} value={imageLink} />
-                </div>
-
-                <div className={styles.details}>
-
-                    <div className={styles.difficulty}>
-                        <h2>Difficulty</h2>
-                        <div>
-                            <input type="radio" id="easy" name="difficulty" checked={difficulty === "Easy"} onChange={(e) => setDifficulty(e.target.value)} value="Easy" />
-                            <label htmlFor="easy">Easy</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="medium" name="difficulty" checked={difficulty === "Medium"} onChange={(e) => setDifficulty(e.target.value)} value="Medium" />
-                            <label htmlFor="medium">Medium</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="hard" name="difficulty" checked={difficulty === "Hard"} onChange={(e) => setDifficulty(e.target.value)} value="Hard" />
-                            <label htmlFor="hard">Hard</label>
-                        </div>
+                        <textarea type="text" placeholder="Recipe title" onChange={(e) => setTitle(e.target.value)} value={title} />
                     </div>
 
-                    <div className={styles.preparation_time}>
-                        <h2>Preparation time</h2>
-                        <div>
-                            <input type="number" placeholder="25" onChange={(e) => setPrepTime(Number(e.target.value))} value={prepTime} />
-                            <p>minutes</p>
-                        </div>
+                    <div className={styles.description + " " + themeColors.primary}>
+                        <h2>Description</h2>
+                        <textarea className={themeColors.opacity} type="text" placeholder="A very easy and sweet recipe!"
+                            onChange={(e) => setDescription(e.target.value)}
+                            value={description} />
                     </div>
-                </div>
 
+                    <div className={styles.image + " " + themeColors.primary}>
+                        <img src={imageLink} alt="" />
+                        <h2>Image link</h2>
+                        <input className={themeColors.opacity} type="text" placeholder="http://google.com/image.jpg" onChange={(e) => setImageLink(e.target.value)} value={imageLink} />
+                    </div>
 
-                <div className={styles.ingredients}>
-                    <h2>Ingredients</h2>
-                    <div className={styles.ingredient_list}>
-                        {ingredients && ingredients.map(x => (
-                            <div className={styles.ingredient} key={x.substring(0, 20)}>
-                                <p>{x}</p>
-                                <button onClick={(e) => onRemoveIngredient(e.target.value)} value={x}>x</button>
+                    <div className={styles.details + " " + themeColors.primary}>
+
+                        <div className={styles.difficulty + " " + themeColors.opacity}>
+                            <h2>Difficulty</h2>
+                            <div>
+                                <input type="radio" id="easy" name="difficulty" checked={difficulty === "Easy"} onChange={(e) => setDifficulty(e.target.value)} value="Easy" />
+                                <label htmlFor="easy">Easy</label>
                             </div>
-                        ))}
-                    </div>
-                    <input placeholder="200g flour"
-                        onChange={(e) => setNewIngredient(e.target.value)}
-                        value={newIngredient} />
-                    <button onClick={onAddIngredient}>Add ingredient</button>
-                </div>
-
-                <div className={styles.instructions}>
-                    <h2>Instructions</h2>
-                    <div className={styles.steps}>
-                        {instructions && instructions.map(x => (
-                            <div className={styles.instruction} key={x.substring(0, 20)}>
-                                <p>{x}</p>
-                                <button onClick={(e) => onRemoveInstruction(e.target.value)} value={x}>x</button>
+                            <div>
+                                <input type="radio" id="medium" name="difficulty" checked={difficulty === "Medium"} onChange={(e) => setDifficulty(e.target.value)} value="Medium" />
+                                <label htmlFor="medium">Medium</label>
                             </div>
-                        ))}
+                            <div>
+                                <input type="radio" id="hard" name="difficulty" checked={difficulty === "Hard"} onChange={(e) => setDifficulty(e.target.value)} value="Hard" />
+                                <label htmlFor="hard">Hard</label>
+                            </div>
+                        </div>
+
+                        <div className={styles.preparation_time + " " + themeColors.opacity}>
+                            <h2>Preparation time</h2>
+                            <div>
+                                <input className={themeColors.opacity} type="number" placeholder="25" onChange={(e) => setPrepTime(Number(e.target.value))} value={prepTime} />
+                                <p>minutes</p>
+                            </div>
+                        </div>
                     </div>
-                    <textarea placeholder="Mix everything and put in refrigerator for 1 hour."
-                        onChange={(e) => setNewInstruction(e.target.value)}
-                        value={newInstruction} />
-                    <button onClick={onAddInstruction}>Add instruction</button>
-                </div>
 
 
-                <div className={styles.confirmation}>
-                    {recipeId ?
-                        <button onClick={editRecipeHandler}>Edit Recipe</button> :
-                        <button onClick={() => createRecipeHandler(recipe)}>Create new recipe</button>}
-                </div>
+                    <div className={styles.ingredients + " " + themeColors.primary}>
+                        <h2>Ingredients</h2>
+                        <div className={styles.ingredient_list}>
+                            {ingredients && ingredients.map(x => (
+                                <div className={styles.ingredient} key={x.substring(0, 20)}>
+                                    <p>{x}</p>
+                                    <button onClick={(e) => onRemoveIngredient(e.target.value)} value={x}>x</button>
+                                </div>
+                            ))}
+                        </div>
+                        <input className={themeColors.opacity} placeholder="write ingredient here"
+                            onChange={(e) => setNewIngredient(e.target.value)}
+                            value={newIngredient} />
+                        <button onClick={onAddIngredient}>Add ingredient</button>
+                    </div>
 
-            </div>
+                    <div className={styles.instructions + " " + themeColors.primary}>
+                        <h2>Instructions</h2>
+                        <div className={styles.steps}>
+                            {instructions && instructions.map(x => (
+                                <div className={styles.instruction} key={x.substring(0, 20)}>
+                                    <p>{x}</p>
+                                    <button onClick={(e) => onRemoveInstruction(e.target.value)} value={x}>x</button>
+                                </div>
+                            ))}
+                        </div>
+                        <textarea className={themeColors.opacity} placeholder="write instruction here"
+                            onChange={(e) => setNewInstruction(e.target.value)}
+                            value={newInstruction} />
+                        <button onClick={onAddInstruction}>Add instruction</button>
+                    </div>
+
+
+                    <div className={styles.confirmation}>
+                        {recipeId ?
+                            <button className={themeColors.primary} onClick={editRecipeHandler}>Edit Recipe</button> :
+                            <button className={themeColors.primary} onClick={() => createRecipeHandler(recipe)}>Create new recipe</button>}
+                    </div>
+
+                </div>)}
         </div>
 
     );

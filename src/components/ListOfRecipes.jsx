@@ -17,21 +17,21 @@ export const ListOfRecipes = () => {
     return (
         <div className={styles.container}>
             <div className={styles.search}>
-                <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search recipes" />
+                <input className={themeColors.primary} type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search recipes" />
             </div>
             <div className={styles.filters}>
                 <h1>Filters</h1>
-                <div className={styles.difficulty}>
+                <div className={styles.difficulty + " " + themeColors.primary}>
                     <h3>Difficulty</h3>
-                    <div>
+                    <div className={themeColors.gradient}>
                         <input type="checkbox" checked={difficulty.Easy} id="easy" value={difficulty.Easy} onChange={() => setDifficulty(state => ({ ...state, Easy: !state.Easy }))} />
                         <label htmlFor="easy">Easy</label>
                     </div>
-                    <div>
+                    <div className={themeColors.gradient}>
                         <input type="checkbox" checked={difficulty.Medium} id="medium" value={difficulty.Medium} onChange={() => setDifficulty(state => ({ ...state, Medium: !state.Medium }))} />
                         <label htmlFor="medium">Medium</label>
                     </div>
-                    <div>
+                    <div className={themeColors.gradient}>
                         <input type="checkbox" checked={difficulty.Hard} id="hard" value={difficulty.Hard} onChange={() => setDifficulty(state => ({ ...state, Hard: !state.Hard }))} />
                         <label htmlFor="easy">Hard</label>
                     </div>

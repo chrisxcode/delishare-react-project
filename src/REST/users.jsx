@@ -132,3 +132,15 @@ export const removeFollower = async (profileId, followerId, setProfileChange) =>
         alert(error.message)
     }
 }
+
+export const changeTheme = async (userId, theme, setProfileChange) => {
+    try {
+        const profileOwner = doc(db, "users", userId);
+        await updateDoc(profileOwner, {
+            theme
+        })
+        setProfileChange(state => state + 1);
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}

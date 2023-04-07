@@ -9,6 +9,8 @@ export const Login = ({
 
     const [loading, setLoading] = useState(false);
 
+    const navigate = useNavigate();
+
     const { setLoggedStatus } = useContext(AppContext);
 
     const [email, setEmail] = useState('');
@@ -19,7 +21,13 @@ export const Login = ({
     const logInHandler = async () => {
         setLoading(true);
         try {
-            await logIn(email, password, setLoggedStatus);
+            await logIn(email, password);
+            setLoggedStatus(true);
+            navigate("/success")
+            setTimeout(() => {
+                navigate('/')
+            }, 2000);
+
         } catch {
             setValidCredentials(false);
             setLoading(false);
@@ -28,7 +36,7 @@ export const Login = ({
 
     }
 
-    const navigate = useNavigate();
+
 
     const navigateToRegister = () => {
         navigate("/register")

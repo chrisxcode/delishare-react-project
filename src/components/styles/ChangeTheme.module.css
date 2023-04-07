@@ -1,0 +1,74 @@
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.wrapper {
+    width: 100%;
+    height: 92vh;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+
+.container {
+    width: 800px;
+    height: 80vh;
+    border-radius: 20px;
+
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.palletes {
+    margin-top: 10vh;
+    display: flex;
+    width: 100%;
+    height: 200px;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+.pallete_wrapper {
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+}
+
+.pallete {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    transition: 0.4s;
+    /* border: solid 6px rgb(255, 255, 255, 0.3); */
+    border-radius: 100%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.pallete:hover {
+    width: 120px;
+    height: 120px;
+    transition: 0.4s;
+}
+
+.save {
+    display: inline-block;
+    border: transparent;
+    color: inherit;
+    width: 150px;
+    height: 50px;
+    border-radius: 30px;
+}
+
+.save:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}

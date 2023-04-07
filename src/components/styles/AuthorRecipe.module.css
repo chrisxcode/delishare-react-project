@@ -52,7 +52,6 @@ input:focus {
     max-width: 60%;
     height: fit-content;
     position: relative;
-    background-color: rgba(255, 255, 255, 0.2);
     padding: 20px 30px 0px 30px;
 
 }
@@ -66,13 +65,15 @@ input:focus {
     display: inline-block;
     margin-bottom: 30px;
     width: 80%;
-    background-color: rgba(255, 255, 255, 0.3);
+    /* background-color: rgba(255, 255, 255, 0.3); */
     padding: 20px;
     border-radius: 10px;
 }
 
 .container>h1 {
     background-color: transparent;
+
+    border: solid 2px white;
 }
 
 .header h1 {
@@ -81,6 +82,7 @@ input:focus {
 
 .header textarea {
     border-radius: 30px;
+    color: inherit;
     font-size: 2em;
 }
 
@@ -89,7 +91,7 @@ input:focus {
 }
 
 .description textarea {
-    background-color: rgba(241, 111, 111, 0.2);
+    color: inherit;
     padding: 10px;
     height: 90px;
     border-radius: 10px;
@@ -111,9 +113,9 @@ input:focus {
 }
 
 .image input {
-    background-color: rgba(255, 120, 120, 0.2);
     width: 100%;
     height: 30px;
+    color: inherit;
 }
 
 .details {
@@ -127,7 +129,6 @@ input:focus {
     display: inline-block;
     padding: 20px;
     border-radius: 10px;
-    background-color: lightcoral;
 }
 
 .difficulty {
@@ -137,6 +138,7 @@ input:focus {
 }
 
 .difficulty input {
+    color: inherit;
     accent-color: transparent;
 }
 
@@ -165,12 +167,11 @@ input:focus {
 }
 
 .preparation_time input {
-    background-color: rgba(55, 55, 55, 0.1);
     width: 50px;
     height: 30px;
     margin-right: 10px;
+    color: inherit;
 }
-
 
 /* removes arrows of the input field */
 input::-webkit-outer-spin-button,
@@ -225,6 +226,7 @@ input::-webkit-inner-spin-button {
     width: 70%;
     margin-right: 10px;
     font-size: inherit;
+    color: inherit;
 }
 
 .ingredients>button {
@@ -236,6 +238,12 @@ input::-webkit-inner-spin-button {
     color: rgba(255, 255, 255, 0.7);
     border-radius: 100px;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.ingredients>button:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
     transition: 0.3s;
 }
 
@@ -262,6 +270,7 @@ input::-webkit-inner-spin-button {
     height: auto;
     line-height: 30px;
     margin-bottom: 10px;
+    padding: 10px;
 }
 
 .instruction * {
@@ -270,6 +279,7 @@ input::-webkit-inner-spin-button {
 }
 
 .instruction button {
+    display: inline-block;
     background-color: rgba(0, 0, 0, 0.3);
     height: 25px;
     width: 25px;
@@ -282,18 +292,18 @@ input::-webkit-inner-spin-button {
 
 
 .instruction p {
-    width: 500px;
+    width: 90%;
     height: auto;
     word-wrap: break-word;
     text-align: left;
 }
 
 .instructions textarea {
+    color: inherit;
     border-radius: 30px;
     padding: 10px;
     height: 200px;
     font-size: inherit;
-    background-color: rgba(55, 55, 55, 0.1);
     width: 100%;
     max-width: 500px;
     margin-right: 10px;
@@ -313,13 +323,19 @@ input::-webkit-inner-spin-button {
     transition: 0.3s;
 }
 
+.instructions>button:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    transition: 0.3s;
+}
+
 .confirmation {
     background-color: transparent;
     padding: 0px;
 }
 
 .confirmation>button {
-    background-color: rgba(0, 0, 0, 0.3);
+    /* background-color: rgba(0, 0, 0, 0.3); */
     height: 80px;
     width: 250px;
     font-size: 1.5em;
@@ -332,13 +348,7 @@ input::-webkit-inner-spin-button {
 }
 
 .confirmation>button:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-    color: white;
-    transition: 0.3s;
-}
-
-button:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.3);
     color: white;
     transition: 0.3s;
 }

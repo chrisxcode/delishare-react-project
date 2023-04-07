@@ -9,7 +9,7 @@ export const Header = ({ userId }) => {
     const { themeColors, loggedStatus } = useContext(AppContext);
 
     return (
-        <div className={styles.header} style={{ backgroundColor: themeColors.header }}>
+        <div className={styles.header + " " + themeColors.primary} >
             <nav className={styles.navigation}>
                 <div className={styles.logo}>
                     <Link to="/">DeliShare</Link>

@@ -12,7 +12,7 @@ export const getAllRecipes = async () => {
 
         return filteredRecipeData;
     } catch (error) {
-        alert(error)
+        throw new Error(error.message);
     }
 }
 
@@ -27,7 +27,7 @@ export const createRecipe = async (newRecipe) => {
 
         return result.id;
     } catch (error) {
-        alert(error.message);
+        throw new Error(error.message);
     }
 }
 
@@ -36,7 +36,7 @@ export const editRecipe = async (recipeId, editedRecipe) => {
         const recipeDoc = doc(db, "recipes", recipeId);
         await updateDoc(recipeDoc, editedRecipe);
     } catch (error) {
-        alert(error.message)
+        throw new Error(error.message);
     }
 }
 
@@ -47,6 +47,6 @@ export const deleteRecipe = async (userId, recipeId) => {
         await deleteRecipeInteractionDoc(recipeId);
         await removeFromAuthored(userId, recipeId);
     } catch (error) {
-        alert(error.message)
+        throw new Error(error.message);
     }
 }

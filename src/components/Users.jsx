@@ -7,13 +7,13 @@ export const Users = ({
     followers
 }) => {
 
-    const { users } = useContext(AppContext);
+    const { users, themeColors } = useContext(AppContext);
     const [search, setSearch] = useState("");
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.search}>
-                <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search users" />
+                <input className={themeColors.primary} type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search users" />
             </div>
             <div className={styles.container}>
                 {users.map(user =>
