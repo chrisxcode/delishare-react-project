@@ -10,7 +10,7 @@ export const Register = ({
 
     const [loading, setLoading] = useState(false);
 
-    const { setLoggedStatus } = useContext(AppContext);
+    const { setLoggedStatus, themeColors } = useContext(AppContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -124,21 +124,21 @@ export const Register = ({
                         <label htmlFor="email">Email</label>
                         {!validation.email && <p>(Must be a valid email)</p>}
                         <input id='email'
-                            className={validation.email ? null : styles.wrong}
+                            className={(validation.email ? null : styles.wrong) + " " + themeColors.primary}
                             onBlur={() => emailValidation()}
                             onChange={(e) => setEmail(e.target.value)}
                             value={email} />
                         <label htmlFor="password">Password</label>
                         {!validation.password && <p>(Password is too short)</p>}
                         <input type='password'
-                            className={validation.password ? null : styles.wrong}
+                            className={(validation.password ? null : styles.wrong) + " " + themeColors.primary}
                             onBlur={() => passwordValidation()}
                             onChange={(e) => setPassword(e.target.value)}
                             value={password} />
                         <label htmlFor="confirm">Confirm Password:</label>
                         {!validation.confirmPassword && <p>(Passwords must match)</p>}
                         <input id="confirm" type='password'
-                            className={validation.confirmPassword ? null : styles.wrong}
+                            className={(validation.confirmPassword ? null : styles.wrong) + " " + themeColors.primary}
                             onBlur={() => confirmPasswordValidation()}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             value={confirmPassword} />
@@ -147,7 +147,7 @@ export const Register = ({
                             (Description is too short)</p>}
                         {(!validation.description && description.length > 138) && <p>(Description is too long)</p>}
                         <textarea name="description" id="description"
-                            className={validation.description ? null : styles.wrong}
+                            className={(validation.description ? null : styles.wrong) + " " + themeColors.primary}
                             onBlur={() => descriptionValidation()}
                             onChange={(e) => setDescription(e.target.value)}
                             value={description} ></textarea>

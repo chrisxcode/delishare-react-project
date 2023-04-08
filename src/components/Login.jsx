@@ -11,7 +11,7 @@ export const Login = ({
 
     const navigate = useNavigate();
 
-    const { setLoggedStatus } = useContext(AppContext);
+    const { setLoggedStatus, themeColors } = useContext(AppContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -51,9 +51,9 @@ export const Login = ({
                 : (<div className={styles.container}>
                     <div className={styles.input_fields}>
                         <label htmlFor="email">Email</label>
-                        <input id='email' onChange={(e) => setEmail(e.target.value)} value={email} />
+                        <input className={themeColors.primary} id='email' onChange={(e) => setEmail(e.target.value)} value={email} />
                         <label htmlFor="password">Password</label>
-                        <input type='password' onChange={(e) => setPassword(e.target.value)} value={password} />
+                        <input className={themeColors.primary} type='password' onChange={(e) => setPassword(e.target.value)} value={password} />
                     </div>
                     <div className={validCredentials ? styles.valid : styles.invalid}>
                         <p>Incorrect email or password.</p>

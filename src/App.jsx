@@ -109,14 +109,14 @@ function App() {
     // ALL USERS - Create state for all users
 
     const [users, setUsers] = useState([]);
-    const [themeColors, setThemeColors] = useState(themes[loggedInUser?.theme] || themes.orange);
+    const [themeColors, setThemeColors] = useState(themes[loggedInUser?.theme] || themes.blue);
 
     // ALL USERS - Fetch all users data and save it in the users state
 
     useEffect(() => {
         const getUsers = async () => {
             let all = await getAllUsers();
-            setUsers(all);
+            setUsers(all.sort((a, b) => b.memberSince - a.memberSince));
         }
         getUsers();
 
@@ -128,9 +128,9 @@ function App() {
                 setLoggedStatus(auth?.currentUser);
                 setCurrentUserId(auth?.currentUser?.uid);
                 setLoggedInUser(users?.find(x => x.userId === currentUserId))
-                setThemeColors(themes[loggedInUser?.theme] || themes.orange);
+                setThemeColors(themes[loggedInUser?.theme] || themes.blue);
             } else {
-                setThemeColors(themes.orange);
+                setThemeColors(themes.blue);
             }
         });
     }, [users, currentUserId, loggedInUser]);
@@ -142,7 +142,7 @@ function App() {
     useEffect(() => {
         const getRecipesHandler = async () => {
             let all = await getAllRecipes();
-            setRecipes(all);
+            setRecipes(all.sort((a, b) => b.createdOn - a.createdOn));
         }
         getRecipesHandler();
     }, []);
