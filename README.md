@@ -5,7 +5,7 @@
     <img src="./public/delishare-logo.png" alt="Logo" width="500">
   </a>
 
-  <h3 align="center">Share Deliciout recipes with people around the world!</h3>
+  <h3 align="center">Share Delicious recipes with people around the world!</h3>
 
   <p align="center">
     <br />
@@ -47,8 +47,8 @@ Delishare is a platform for sharing your unique taste in food. Create, like, and
 
 * **Recipes**
     * See a list of all the published recipes
-    * Use filters to sort out the recipes by difficulty
-    * Use search bar to sort out the recipes by key words
+    * Use filters to sort out recipes by difficulty
+    * Use search bar to sort out recipes by key words
     * Click on a recipe to see more detailed view
 
 * **Recipe Detail View**
@@ -62,7 +62,7 @@ Delishare is a platform for sharing your unique taste in food. Create, like, and
     
 * **Users**
     * See a list of all the registered users
-    * Use search bar to sort out the users by key words
+    * Use search bar to sort out users by key words
     * See user information on each user card, such as cover photo, profile picture, username, description, number of authored recipes, number of followers, number of people followed
     * Click on the user card to open the full user profile
 
@@ -84,7 +84,9 @@ Delishare is a platform for sharing your unique taste in food. Create, like, and
     * **Change theme** (PROFILE OWNER only), which allows the user to customize the theme of the website. Any time the user is logged in, the platform will be themed according to the preference saved in their profile. Once the user logs out, the platform reverts to the default theme (Blue).
     * **Logout** (PROFILE OWNER only), which allows the user to log out of their profile
 
-The website uses functional components, the **Context API**, **React Router DOM**, and does styling via **CSS modules**. All forms have form validation. Architecturally, the **src** folder contains:
+The website uses functional components, the **Context API**, **React Router DOM**, and does styling via **CSS modules**. All forms have form validation, and all CRUD requests trigger a loading screen, which allows the user to see their request is being processed.
+
+Architecturally, the **src** folder contains:
 
 * **components**
     * Contains all the components, plus a folder with the components CSS modules.
