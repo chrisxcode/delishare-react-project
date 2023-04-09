@@ -1,7 +1,7 @@
 f<!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/chrisxcode/delishare-react-project.git">
+  <a href="https://delishare-react-project.web.app/">
     <img src="./public/delishare-logo.png" alt="Logo" width="500">
   </a>
 
@@ -13,7 +13,7 @@ f<!-- PROJECT LOGO -->
     <img width ='46px' src ='https://raw.githubusercontent.com/rahulbanerjee26/githubAboutMeGenerator/main/icons/reactjs.svg'>
     <img width ='46px' src ='https://github.com/rahulbanerjee26/githubProfileReadmeGenerator/blob/main/icons/firebase.svg'>
     <br />
-    <a href="https://delishare-react-project.web.app/"><font size="10">Live Demo</font></a>
+    <a href="https://delishare-react-project.web.app/">Live Demo</a>
   </p>
 </p>
 
