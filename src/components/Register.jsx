@@ -8,6 +8,7 @@ export const Register = ({
     setUsers
 }) => {
 
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
     const { setLoggedStatus, themeColors } = useContext(AppContext);
@@ -98,13 +99,11 @@ export const Register = ({
             setTimeout(() => {
                 setLoggedStatus(true);
                 navigate('/');
-            }, 2000);
+            }, 1600);
         } catch (error) {
             alert(error.message)
         }
     }
-
-    const navigate = useNavigate();
 
     const navigateToLogin = () => {
         navigate("/login")

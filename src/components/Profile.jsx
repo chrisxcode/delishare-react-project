@@ -15,16 +15,15 @@ export const Profile = ({
     const [loading, setLoading] = useState(false);
 
     const { setLoggedStatus, themeColors, recipes, currentUserId, setCurrentUserId, users } = useContext(AppContext);
-
     const { userId } = useParams();
     const navigate = useNavigate();
 
-    const currentUser = users.find(x => x.userId === userId);
+    const userProfile = users.find(x => x.userId === userId);
 
     const userFollowersObj = followers?.find(x => x.userId === userId);
     const userFollowers = userFollowersObj?.followers;
 
-    const isThisMyProfile = currentUser?.userId === currentUserId;
+    const isThisMyProfile = userProfile?.userId === currentUserId;
 
     const [followed, setFollowed] = useState(userFollowers?.includes(currentUserId));
 
@@ -37,7 +36,7 @@ export const Profile = ({
                 setLoggedStatus(false);
                 setCurrentUserId(null);
                 navigate('/')
-            }, 2000);
+            }, 1600);
 
         } catch (error) {
             alert(error.message);
@@ -46,12 +45,12 @@ export const Profile = ({
     }
 
     const followHandler = async () => {
-        await addFollower(currentUser.userId, currentUserId, setProfileChange);
+        await addFollower(userProfile.userId, currentUserId, setProfileChange);
         setFollowed(true);
     }
 
     const unfollowHandler = async () => {
-        await removeFollower(currentUser.userId, currentUserId, setProfileChange);
+        await removeFollower(userProfile.userId, currentUserId, setProfileChange);
         setFollowed(false);
     }
 
@@ -72,18 +71,18 @@ export const Profile = ({
                 : (<div className={styles.container}>
                     <div className={styles.sidebar}>
                         <div className={styles.profile}><div className={styles.cover}>
-                            <div className={styles.cover_image} style={{ backgroundImage: `url(${currentUser.coverImage})` }}></div>
+                            <div className={styles.cover_image} style={{ backgroundImage: `url(${userProfile.coverImage})` }}></div>
                         </div>
-                            <div className={styles.profile_image} style={{ backgroundImage: `url(${currentUser.profilePicture})` }}></div>
+                            <div className={styles.profile_image} style={{ backgroundImage: `url(${userProfile.profilePicture})` }}></div>
                             <div className={styles.user_info + " " + themeColors.primary}>
-                                <h2>@{currentUser.username}</h2>
+                                <h2>@{userProfile.username}</h2>
                                 <div className={styles.description_container}>
-                                    <p>{currentUser.description}</p>
+                                    <p>{userProfile.description}</p>
                                 </div>
                             </div>
                             <div className={styles.activities + " " + themeColors.primary}>
-                                <div className={styles.activity}><p>Recipes</p><p>{currentUser.authored.length}</p></div>
-                                <div className={styles.activity}><p>Following</p><p>{currentUser.following.length}</p></div>
+                                <div className={styles.activity}><p>Recipes</p><p>{userProfile.authored.length}</p></div>
+                                <div className={styles.activity}><p>Following</p><p>{userProfile.following.length}</p></div>
                                 <div className={styles.activity}><p>Followers</p><p>{userFollowers.length}</p></div>
                             </div></div>
                         {currentUserId &&
@@ -114,13 +113,13 @@ export const Profile = ({
                     <div className={styles.main + " " + themeColors.opacity}>
                         <div className={styles.navigation}>
                             <ul className={styles.links}>
-                                <li><Link className={styles.link + " " + themeColors.opacity} to="authored">authored</Link></li>
-                                <li><Link className={styles.link + " " + themeColors.opacity} to="liked">liked</Link></li>
-                                <li><Link className={styles.link + " " + themeColors.opacity} to="saved">saved</Link></li>
-                                <li><Link className={styles.link + " " + themeColors.opacity} to="following">following</Link></li>
+                                <li><Link className={styles.link + " " + themeColors.primary} to="authored">Authored</Link></li>
+                                <li><Link className={styles.link + " " + themeColors.primary} to="liked">Liked</Link></li>
+                                <li><Link className={styles.link + " " + themeColors.primary} to="saved">Saved</Link></li>
+                                <li><Link className={styles.link + " " + themeColors.primary} to="following">Following</Link></li>
                             </ul>
                         </div>
-                        <ProfileNavigation themeColors={themeColors} recipes={recipes} userId={userId} currentUser={currentUser} />
+                        <ProfileNavigation themeColors={themeColors} recipes={recipes} userId={userId} userProfile={userProfile} />
                     </div>
 
                 </div>)}

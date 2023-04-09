@@ -8,7 +8,7 @@ export const ProfileNavigation = ({
     themeColors,
     recipes,
     userId,
-    currentUser
+    userProfile
 }) => {
 
     return (
@@ -16,7 +16,7 @@ export const ProfileNavigation = ({
             themeColors,
             recipes,
             userId,
-            currentUser
+            userProfile
         }}>
             <div>
                 <Routes>

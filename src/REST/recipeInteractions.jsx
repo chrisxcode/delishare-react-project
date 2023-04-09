@@ -1,10 +1,11 @@
 import { db, auth } from '../config/firebase';
 import { doc, getDocs, setDoc, updateDoc, deleteDoc, arrayUnion, arrayRemove, collection } from "firebase/firestore";
 
-const interactionDataRef = collection(db, `recipeInteractions`);
+
 
 export const getAllRecipeInteractions = async () => {
     try {
+        const interactionDataRef = collection(db, `recipeInteractions`);
         const interactionData = await getDocs(interactionDataRef);
         const filteredInteractionData = interactionData.docs.map(doc => ({ ...doc.data() }));
 

@@ -12,7 +12,7 @@ export const Header = ({ userId }) => {
         <div className={styles.header + " " + themeColors.primary} >
             <nav className={styles.navigation}>
                 <div className={styles.logo}>
-                    <Link to="/">DeliShare</Link>
+                    <Link to="/"><i class="fa-solid fa-utensils"></i> DeliShare</Link>
                 </div>
                 <ul className={styles.links}>
                     <li><Link className={styles.link} to="/">Home</Link></li>

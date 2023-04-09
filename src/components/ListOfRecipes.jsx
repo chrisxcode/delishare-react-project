@@ -8,6 +8,7 @@ export const ListOfRecipes = () => {
     const { recipes, themeColors } = useContext(AppContext);
 
     const [search, setSearch] = useState("");
+
     const [difficulty, setDifficulty] = useState({
         Easy: true,
         Medium: true,
@@ -38,7 +39,7 @@ export const ListOfRecipes = () => {
                 </div>
             </div>
             <div className={styles.recipes}>
-                {recipes.map(recipe => (
+                {recipes.sort((a, b) => b.createdOn - a.createdOn).map(recipe => (
                     recipe.title.toLowerCase().includes(search.toLowerCase())
                         && difficulty[recipe.difficulty] === true
                         ? <SingleRecipe key={recipe.id} recipe={recipe} /> : null

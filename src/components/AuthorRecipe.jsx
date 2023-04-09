@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { createRecipe, editRecipe } from "../REST/recipes";
 import { auth } from "../config/firebase";
@@ -8,16 +8,14 @@ import { AppContext } from "../App";
 
 export const AuthorRecipe = () => {
 
-    const [loading, setLoading] = useState(false);
-
     const { setRecipes, recipes, themeColors } = useContext(AppContext);
-
     const navigate = useNavigate();
+
     let { recipeId } = useParams();
 
     let recipe = {
         title: '',
-        imageLink: 'https://thumbs.dreamstime.com/b/colourful-various-herbs-spices-cooking-dark-background-herbs-spices-cooking-dark-background-113655482.jpg',
+        imageLink: 'https://t4.ftcdn.net/jpg/03/32/75/39/360_F_332753934_tBacXEgxnVplFBRyKbCif49jh0Wz89ns.jpg',
         difficulty: '',
         prepTime: 0,
         description: '',
@@ -31,6 +29,8 @@ export const AuthorRecipe = () => {
         recipe = recipes.find(x => x.id === recipeId);
     }
 
+    const [loading, setLoading] = useState(false);
+
     const [newIngredient, setNewIngredient] = useState('');
     const [newInstruction, setNewInstruction] = useState('');
 
@@ -41,6 +41,19 @@ export const AuthorRecipe = () => {
     const [description, setDescription] = useState(recipe.description);
     const [ingredients, setIngredients] = useState(recipe.ingredients);
     const [instructions, setInstructions] = useState(recipe.instructions);
+
+    const [allValid, setAllValid] = useState(true);
+
+    const [validation, setValidation] = useState({
+        title: true,
+        imageLink: true,
+        difficulty: true,
+        prepTime: true,
+        description: true,
+        ingredients: true,
+        instructions: true
+    })
+
 
     const onAddIngredient = () => {
         if (newIngredient !== "") {
@@ -65,6 +78,13 @@ export const AuthorRecipe = () => {
     }
 
     const createRecipeHandler = async () => {
+        if (!validationCheck()) {
+            setAllValid(false);
+            return;
+        } else {
+            setAllValid(true);
+        }
+
         setLoading(true)
         let userId = auth?.currentUser?.uid;
         let recipe = {
@@ -82,11 +102,18 @@ export const AuthorRecipe = () => {
         navigate('/success')
         setTimeout(() => {
             navigate(`/recipes/${recipeId}`);
-        }, 2000);
+        }, 1600);
         setLoading(false);
     }
 
     const editRecipeHandler = async () => {
+        if (!validationCheck()) {
+            setAllValid(false);
+            return;
+        } else {
+            setAllValid(true);
+        }
+
         setLoading(true);
         let editedRecipe = {
             title,
@@ -104,7 +131,75 @@ export const AuthorRecipe = () => {
         navigate('/success')
         setTimeout(() => {
             navigate(`/recipes/${recipeId}`);
-        }, 2000);
+        }, 1500);
+    }
+
+    const validationCheck = () => {
+
+        let validation = {};
+
+        if (title.length >= 10 && title.length <= 60) {
+            setValidation(state => ({ ...state, title: true }));
+            validation.title = true;
+        } else {
+            setValidation(state => ({ ...state, title: false }));
+            validation.title = false;
+        }
+
+        if (description.length >= 60 && description.length <= 240) {
+            setValidation(state => ({ ...state, description: true }));
+            validation.description = true;
+        } else {
+            setValidation(state => ({ ...state, description: false }));
+            validation.description = false;
+        }
+
+        try {
+            new URL(imageLink);
+            setValidation(state => ({ ...state, imageLink: true }));
+            validation.imageLink = true;
+        } catch (err) {
+            setValidation(state => ({ ...state, imageLink: false }));
+            validation.imageLink = false;
+        }
+
+        if (difficulty !== "") {
+            setValidation(state => ({ ...state, difficulty: true }));
+            validation.difficulty = true;
+        } else {
+            setValidation(state => ({ ...state, difficulty: false }));
+            validation.difficulty = false;
+        }
+
+        if (prepTime > 0) {
+            setValidation(state => ({ ...state, prepTime: true }));
+            validation.prepTime = true;
+        } else {
+            setValidation(state => ({ ...state, prepTime: false }));
+            validation.prepTime = false;
+        }
+
+        if (ingredients.length >= 2) {
+            setValidation(state => ({ ...state, ingredients: true }));
+            validation.ingredients = true;
+        } else {
+            setValidation(state => ({ ...state, ingredients: false }));
+            validation.ingredients = false;
+        }
+
+        if (instructions.length >= 3) {
+            setValidation(state => ({ ...state, instructions: true }));
+            validation.instructions = true;
+        } else {
+            setValidation(state => ({ ...state, instructions: false }));
+            validation.instructions = false;
+        }
+
+        if (Object.values(validation).includes(false)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     return (
@@ -115,10 +210,11 @@ export const AuthorRecipe = () => {
                     <span className="loader"></span>
                 </div>)
                 : (<div className={styles.container + " " + themeColors.opacity}>
+
                     <h1>{recipeId ? "Edit recipe" : "Create new recipe!"}</h1>
                     <div className={styles.header + " " + themeColors.primary}>
-
                         <textarea type="text" placeholder="Recipe title" onChange={(e) => setTitle(e.target.value)} value={title} />
+                        {!validation.title && <div className={styles.error}><p>Title should be between 10 and 60 characters long.</p></div>}
                     </div>
 
                     <div className={styles.description + " " + themeColors.primary}>
@@ -126,12 +222,14 @@ export const AuthorRecipe = () => {
                         <textarea className={themeColors.opacity} type="text" placeholder="A very easy and sweet recipe!"
                             onChange={(e) => setDescription(e.target.value)}
                             value={description} />
+                        {!validation.description && <div className={styles.error}><p>Description should be between 60 and 240 characters long.</p></div>}
                     </div>
 
                     <div className={styles.image + " " + themeColors.primary}>
                         <img src={imageLink} alt="" />
                         <h2>Image link</h2>
                         <input className={themeColors.opacity} type="text" placeholder="http://google.com/image.jpg" onChange={(e) => setImageLink(e.target.value)} value={imageLink} />
+                        {!validation.imageLink && <div className={styles.error}><p>Image link should be a valid URL.</p></div>}
                     </div>
 
                     <div className={styles.details + " " + themeColors.primary}>
@@ -159,6 +257,9 @@ export const AuthorRecipe = () => {
                                 <p>minutes</p>
                             </div>
                         </div>
+
+                        {!validation.difficulty && <div className={styles.error}><p>Difficulty should have a set value.</p></div>}
+                        {!validation.prepTime && <div className={styles.error}><p>Preparation time can't be 0 minutes.</p></div>}
                     </div>
 
 
@@ -176,6 +277,7 @@ export const AuthorRecipe = () => {
                             onChange={(e) => setNewIngredient(e.target.value)}
                             value={newIngredient} />
                         <button onClick={onAddIngredient}>Add ingredient</button>
+                        {!validation.ingredients && <div className={styles.error}><p>A recipe should contain at least 2 ingredients.</p></div>}
                     </div>
 
                     <div className={styles.instructions + " " + themeColors.primary}>
@@ -192,13 +294,17 @@ export const AuthorRecipe = () => {
                             onChange={(e) => setNewInstruction(e.target.value)}
                             value={newInstruction} />
                         <button onClick={onAddInstruction}>Add instruction</button>
+                        {!validation.instructions && <div className={styles.error}><p>A recipe should contain at least 3 instruction steps.</p></div>}
                     </div>
-
+                    {!allValid &&
+                        <div className={styles.error} style={{ backgroundColor: themeColors.primary }}>
+                            <p>Please check the provided information for errors.</p>
+                        </div>}
 
                     <div className={styles.confirmation}>
                         {recipeId ?
                             <button className={themeColors.primary} onClick={editRecipeHandler}>Edit Recipe</button> :
-                            <button className={themeColors.primary} onClick={() => createRecipeHandler(recipe)}>Create new recipe</button>}
+                            <button className={themeColors.primary} onClick={createRecipeHandler}>Create new recipe</button>}
                     </div>
 
                 </div>)}

@@ -17,8 +17,6 @@ export const signUp = async (email, password, newUser) => {
 
         await createFollowers(userId);
 
-        localStorage.setItem("userId", userId);
-
     } catch (error) {
         throw new Error(error.message);
     }
@@ -26,9 +24,8 @@ export const signUp = async (email, password, newUser) => {
 
 export const logIn = async (email, password) => {
     try {
-        await signInWithEmailAndPassword(auth, email, password);
 
-        localStorage.setItem("userId", auth?.currentUser?.uid);
+        await signInWithEmailAndPassword(auth, email, password);
 
     } catch (error) {
         throw new Error(error.message);
@@ -37,9 +34,9 @@ export const logIn = async (email, password) => {
 
 export const logout = async () => {
     try {
+
         await signOut(auth);
 
-        localStorage.removeItem("userId");
     } catch (error) {
         throw new Error(error.message);
     }

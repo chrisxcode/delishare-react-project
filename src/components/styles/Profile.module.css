@@ -167,10 +167,10 @@
     font-size: 0.8rem;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.5s;
 }
 
 .link:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transition: 0.3s;
+    color: rgba(255, 255, 255, 0.7);
+    transition: 0.5s;
 }

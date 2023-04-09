@@ -72,7 +72,6 @@ input:focus {
 
 .container>h1 {
     background-color: transparent;
-
     border: solid 2px white;
 }
 
@@ -81,7 +80,7 @@ input:focus {
 }
 
 .header textarea {
-    border-radius: 30px;
+    border-radius: 1px;
     color: inherit;
     font-size: 2em;
 }
@@ -107,7 +106,8 @@ input:focus {
 }
 
 .image img {
-    height: auto;
+    object-fit: cover;
+    height: 400px;
     width: 100%;
     border-radius: 10px;
 }
@@ -120,6 +120,7 @@ input:focus {
 
 .details {
     display: inline-flex;
+    flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
     border-radius: 10px;
@@ -349,6 +350,15 @@ input::-webkit-inner-spin-button {
 
 .confirmation>button:hover {
     background-color: rgba(255, 255, 255, 0.3);
-    color: white;
     transition: 0.3s;
+}
+
+.error {
+    display: inline-block;
+    color: red;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 5px;
+    margin-top: 15px;
+    border-radius: 10px;
+    width: 400px;
 }

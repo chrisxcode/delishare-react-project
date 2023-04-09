@@ -8,10 +8,10 @@ export const Login = ({
 }) => {
 
     const [loading, setLoading] = useState(false);
-
     const navigate = useNavigate();
 
     const { setLoggedStatus, themeColors } = useContext(AppContext);
+
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -26,7 +26,7 @@ export const Login = ({
             navigate("/success")
             setTimeout(() => {
                 navigate('/')
-            }, 2000);
+            }, 1600);
 
         } catch {
             setValidCredentials(false);
@@ -35,8 +35,6 @@ export const Login = ({
 
 
     }
-
-
 
     const navigateToRegister = () => {
         navigate("/register")

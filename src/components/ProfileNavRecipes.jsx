@@ -8,27 +8,36 @@ export const ProfileNavRecipes = ({
     sortBy
 }) => {
 
-    const { recipes, themeColors, userId, currentUser } = useContext(ProfileNavContext);
+    const { recipes, userProfile } = useContext(ProfileNavContext);
 
     let listOfRecipes = [];
 
     switch (sortBy) {
         case "authored":
-            listOfRecipes = currentUser.authored;
+            listOfRecipes = userProfile.authored;
             break;
         case "liked":
-            listOfRecipes = currentUser.liked;
+            listOfRecipes = userProfile.liked;
             break;
         case "saved":
-            listOfRecipes = currentUser.saved;
+            listOfRecipes = userProfile.saved;
             break;
         case "following":
             listOfRecipes = recipes
-                .filter(recipe => currentUser.following.includes(recipe.userId))
+                .filter(recipe => userProfile.following.includes(recipe.userId))
                 .map(x => x.id);
             break;
         default:
             break;
+    }
+
+    if (listOfRecipes.length > 0) {
+        listOfRecipes = listOfRecipes.filter(recipe => {
+            let currentRecipe = recipes.find(x => x.id === recipe);
+            if (currentRecipe) {
+                return recipe;
+            }
+        });
     }
 
     return (
@@ -39,14 +48,12 @@ export const ProfileNavRecipes = ({
                         ?
                         listOfRecipes.map(recipe => {
                             let currentRecipe = recipes.find(x => x.id === recipe);
-                            if (currentRecipe) {
-                                return <SingleRecipe key={currentRecipe.id} recipe={currentRecipe} />
-                            } else {
-                                listOfRecipes = listOfRecipes.filter(x => x.id !== recipe);
-                            }
+                            return <SingleRecipe key={currentRecipe.id} recipe={currentRecipe} />
                         })
                         :
-                        <p>No recipes yet</p>
+                        <div className={styles.empty}>
+                            <h3 className={styles.animated}>Nothing here yet...</h3>
+                        </div>
                 }
             </div>
         </div>

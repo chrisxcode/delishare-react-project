@@ -11,30 +11,22 @@ export const ChangeTheme = ({
 
     const { themeColors } = useContext(AppContext);
 
-    const [loading, setLoading] = useState(false);
-
-    const [anyChangesMade, setAnyChangesMade] = useState(false);
-
     const originalThemeColor = themeColors.name;
+
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const { userId } = useParams();
 
     useEffect(() => {
         return () => { setThemeColors(themes[originalThemeColor]) };
-
     }, [])
 
-    const navigate = useNavigate();
-
-
-
     const [selectedTheme, setSelectedTheme] = useState(themeColors.name);
-
-    const { userId } = useParams();
 
     const selectHandler = (e) => {
         let selected = e.target.id;
         setThemeColors(themes[selected]);
         setSelectedTheme(selected);
-        setAnyChangesMade(true);
     }
 
     const saveChangesHandler = async () => {
@@ -44,7 +36,7 @@ export const ChangeTheme = ({
             navigate("/success");
             setTimeout(() => {
                 navigate(-2);
-            }, 2000);
+            }, 1600);
         } catch (error) {
             setLoading(false);
             alert(error.message);

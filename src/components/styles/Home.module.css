@@ -11,10 +11,118 @@
 .home_wrapper {
     display: flex;
     height: 100%;
+    width: 100%;
     justify-content: center;
-    align-items: center;
 
     animation: fadeInAnimation ease 1s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
+}
+
+.container {
+    display: inline-block;
+    width: 100%;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+
+svg {
+    display: block;
+    font: 10.5em 'Montserrat';
+    width: 960px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.textcopy {
+    fill: none;
+    stroke: black;
+    stroke-dasharray: 6% 29%;
+    stroke-width: 5px;
+    stroke-dashoffset: 0%;
+    animation: stroke-offset 8s infinite linear;
+}
+
+.textcopy:nth-child(1) {
+    /* stroke: #000000; */
+    animation-delay: -1;
+}
+
+.textcopy:nth-child(2) {
+    /* stroke: #000000; */
+    animation-delay: -2s;
+}
+
+.textcopy:nth-child(3) {
+    /* stroke: #000000; */
+    animation-delay: -3s;
+}
+
+.textcopy:nth-child(4) {
+    /* stroke: #000000; */
+    animation-delay: -4s;
+}
+
+.textcopy:nth-child(5) {
+    /* stroke: #000000; */
+    animation-delay: -5s;
+}
+
+.textcopy:nth-child(6) {
+    /* stroke: #000000; */
+    animation-delay: -6s;
+}
+
+@keyframes stroke-offset {
+    100% {
+        stroke-dashoffset: -35%;
+    }
+}
+
+.cards {
+    display: flex;
+    margin-top: 50px;
+    height: 250px;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    position: relative;
+    width: 250px;
+    height: 200px;
+    border-radius: 20px;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    margin-bottom: 30px;
+    transition: 0.3s;
+}
+
+.card * {
+    margin: 10px;
+}
+
+.card i {
+    font-size: 2em;
+}
+
+.card h3 {
+    font-size: 16px;
+}
+
+.shine {
+    position: absolute;
+    opacity: 0.2;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: -20px;
+    right: -20px;
+    border-radius: 20px;
+    background-color: white;
 }

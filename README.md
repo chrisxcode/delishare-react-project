@@ -2,6 +2,8 @@
 
 Delishare is a Web App built on React and Firebase, which aims to help users share delicious recipes from around the world.
 
+Live Demo: https://delishare-react-project.web.app/
+
 ## Available Scripts
 
 In the project directory, you can run:

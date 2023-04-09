@@ -27,7 +27,6 @@ export const EditProfile = ({
     const [newUsername, setNewUsername] = useState(user.username);
     const [newDescription, setNewDescription] = useState(user.description);
 
-
     const [valid, setValid] = useState({
         coverImage: true,
         profilePicture: true,
@@ -60,7 +59,7 @@ export const EditProfile = ({
     }
 
     const usernameHandler = () => {
-        if (newUsername.length < 5) {
+        if (newUsername.length < 5 || newUsername.length > 16) {
             setValid(state => ({ ...state, username: false }))
         } else {
             setValid(state => ({ ...state, username: true }))
@@ -90,7 +89,7 @@ export const EditProfile = ({
             navigate('/success')
             setTimeout(() => {
                 navigate(-2)
-            }, 2000);
+            }, 1600);
         } catch (error) {
             alert(error.message)
         }
@@ -159,7 +158,7 @@ export const EditProfile = ({
                     <div className={allValid ? styles.invisible : styles.errors}>
                         {!valid.coverImage && <p>Cover image URL is invalid. Please enter a valid URL.</p>}
                         {!valid.profilePicture && <p>Profile picture URL is invalid. Please enter a valid URL.</p>}
-                        {!valid.username && <p>Username must be 5 or more characters long.</p>}
+                        {!valid.username && <p>Username must be between 5 and 16 characters long.</p>}
                         {!valid.description && <p>Description must be between 20 and 120 characters long.</p>}
                     </div>
 

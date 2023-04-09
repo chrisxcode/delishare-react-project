@@ -17,7 +17,9 @@ export const Users = ({
             </div>
             <div className={styles.container}>
                 {users.map(user =>
-                    user.username.toLowerCase().includes(search.toLowerCase()) ? <SingleUserCard key={user.userId} user={user} userFollowersData={followers.find(f => f.userId === user.userId)} /> : null)}
+                    user.username.toLowerCase().includes(search.toLowerCase())
+                        ? <SingleUserCard key={user.userId} user={user} userFollowersData={followers.find(f => f.userId === user.userId)} />
+                        : null)}
             </div>
         </div>
     );

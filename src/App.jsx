@@ -1,7 +1,7 @@
 import './App.css';
 
 import { createContext, useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import { auth } from "./config/firebase"
 
@@ -36,7 +36,8 @@ function App() {
             secondary: "blueSecondary",
             gradient: "blueGradient",
             opacity: "blueOpacity",
-            text: "white"
+            text: "white",
+            logo: "#142138"
         },
         green: {
             name: "green",
@@ -44,7 +45,8 @@ function App() {
             secondary: "greenSecondary",
             gradient: "greenGradient",
             opacity: "greenOpacity",
-            text: "#ede0e3"
+            text: "#ede0e3",
+            logo: "#1b4332"
         },
         orange: {
             name: "orange",
@@ -52,7 +54,8 @@ function App() {
             secondary: "orangeSecondary",
             gradient: "orangeGradient",
             opacity: "orangeOpacity",
-            text: "#ede0e3"
+            text: "#ede0e3",
+            logo: "#ede0e3"
         },
         dark: {
             name: "dark",
@@ -60,7 +63,8 @@ function App() {
             secondary: "darkSecondary",
             gradient: "darkGradient",
             opacity: "darkOpacity",
-            text: "#b7aeb2"
+            text: "#d6ced1",
+            logo: "#d6ced1"
         },
         purple: {
             name: "purple",
@@ -68,7 +72,8 @@ function App() {
             secondary: "purpleSecondary",
             gradient: "purpleGradient",
             opacity: "purpleOpacity",
-            text: "#f5eff7"
+            text: "#f5eff7",
+            logo: "#3c096c"
         },
         gold: {
             name: "gold",
@@ -76,42 +81,21 @@ function App() {
             secondary: "goldSecondary",
             gradient: "goldGradient",
             opacity: "goldOpacity",
-            text: "#f5eff7"
+            text: "#f5eff7",
+            logo: "#242423"
         }
     }
 
-    // THEME
-
-    // const [themeColors, setThemeColors] = useState({ header: "#e76f51", body: "#f4a261" })
-    // const [themeColors, setThemeColors] = useState({ header: "#00111c", body: "#001a2c" })
-    // const [themeColors, setThemeColors] = useState({ header: "#191528", body: "#3c162f" })
-
-    // FOLLOWERS - Create state for all followers
-
     const [followers, setFollowers] = useState([]);
-
-
-    // USER - Initialize states, which will hold user logged in status and Id
     const [loggedStatus, setLoggedStatus] = useState(auth?.currentUser);
     const [currentUserId, setCurrentUserId] = useState(auth?.currentUser?.uid);
     const [loggedInUser, setLoggedInUser] = useState({});
-
-    // INTERACTIONS - Set state to register when a profile/recipe information has been changed
-
     const [profileChange, setProfileChange] = useState(0);
     const [recipeChange, setRecipeChange] = useState(0);
-
     const [recipeInteractions, setRecipeInteractions] = useState([]);
-
-    // RECIPES - Create state for recipe collection
     const [recipes, setRecipes] = useState([]);
-
-    // ALL USERS - Create state for all users
-
     const [users, setUsers] = useState([]);
     const [themeColors, setThemeColors] = useState(themes[loggedInUser?.theme] || themes.blue);
-
-    // ALL USERS - Fetch all users data and save it in the users state
 
     useEffect(() => {
         const getUsers = async () => {
@@ -134,10 +118,6 @@ function App() {
             }
         });
     }, [users, currentUserId, loggedInUser]);
-
-    useEffect(() => {
-
-    }, [users, currentUserId, loggedStatus, loggedInUser])
 
     useEffect(() => {
         const getRecipesHandler = async () => {
@@ -165,61 +145,59 @@ function App() {
         getFollowers();
     }, [profileChange, loggedStatus]);
 
-    return (
-        <AppContext.Provider value={{
-            themeColors,
-            recipes,
-            setRecipes,
-            loggedStatus,
-            setLoggedStatus,
-            currentUserId,
-            setCurrentUserId,
-            users
-        }}>
-            <div className="App" style={{ color: themeColors.text }}>
+    if (followers.length > 0 && users.length > 0 && recipes.length > 0) {
+        return (
+            <AppContext.Provider value={{
+                themeColors,
+                recipes,
+                setRecipes,
+                loggedStatus,
+                setLoggedStatus,
+                currentUserId,
+                setCurrentUserId,
+                users
+            }}>
+                <div className="App" style={{ color: themeColors.text }}>
 
-                <Header userId={currentUserId} />
+                    <Header userId={currentUserId} />
 
-                <div id='body' className={themeColors.gradient} >
+                    <div id='body' className={themeColors.gradient} >
 
-                    <Routes>
-                        <Route path="/login" element={<Login
-                            logIn={logIn} />} />
-                        <Route path="/register" element={<Register
-                            signUp={signUp}
-                            setUsers={setUsers} />} />
-                        <Route path="/recipes" element={<ListOfRecipes />} />
-                        <Route path="/recipes/:recipeId" element={<DetailedRecipe
-                            setRecipeChange={setRecipeChange} />} />
-                        <Route path="/recipes/:recipeId/edit" element={<AuthorRecipe />} />
-                        <Route path="/create" element={<AuthorRecipe />} />
-                        <Route path="/profile/:userId/edit" exact element={<EditProfile
-                            followers={followers}
-                            setProfileChange={setProfileChange} />} />
-                        <Route path="/profile/:userId/theme" exact element={<ChangeTheme
-                            themes={themes}
-                            setThemeColors={setThemeColors}
-                            setProfileChange={setProfileChange} />} />
-                        <Route path="/profile/:userId/*" element={<Profile
-                            followers={followers}
-                            setProfileChange={setProfileChange}
-                            logout={logout} />} />
-                        <Route path="/users" element={<Users
-                            followers={followers} />} />
-                        <Route path="*" element={<NotFound />} />
-                        <Route path="/" exact element={<Home />} />
-                        <Route path="/success" element={<Success />} />
-                    </Routes>
+                        <Routes>
+                            <Route path="/login" element={<Login
+                                logIn={logIn} />} />
+                            <Route path="/register" element={<Register
+                                signUp={signUp}
+                                setUsers={setUsers} />} />
+                            <Route path="/recipes" element={<ListOfRecipes />} />
+                            <Route path="/recipes/:recipeId" element={<DetailedRecipe
+                                setRecipeChange={setRecipeChange} />} />
+                            <Route path="/recipes/:recipeId/edit" element={<AuthorRecipe />} />
+                            <Route path="/create" element={<AuthorRecipe />} />
+                            <Route path="/profile/:userId/edit" exact element={<EditProfile
+                                followers={followers}
+                                setProfileChange={setProfileChange} />} />
+                            <Route path="/profile/:userId/theme" exact element={<ChangeTheme
+                                themes={themes}
+                                setThemeColors={setThemeColors}
+                                setProfileChange={setProfileChange} />} />
+                            <Route path="/profile/:userId/*" element={<Profile
+                                followers={followers}
+                                setProfileChange={setProfileChange}
+                                logout={logout} />} />
+                            <Route path="/users" element={<Users
+                                followers={followers} />} />
+                            <Route path="*" element={<NotFound />} />
+                            <Route path="/" exact element={<Home />} />
+                            <Route path="/success" element={<Success />} />
+                        </Routes>
 
-                </div>
+                    </div>
 
-
-
-            </div >
-        </AppContext.Provider>
-    );
-
-
+                </div >
+            </AppContext.Provider>
+        );
+    }
 
 
 }

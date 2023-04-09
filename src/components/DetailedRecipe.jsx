@@ -14,7 +14,6 @@ export const DetailedRecipe = ({
 
     const [confirmationModal, setconfirmationModal] = useState(false);
     const [loading, setLoading] = useState(false);
-
     const { recipeId } = useParams();
     const navigate = useNavigate();
 
@@ -34,7 +33,7 @@ export const DetailedRecipe = ({
             navigate("/success")
             setTimeout(() => {
                 navigate("/recipes");
-            }, 2000);
+            }, 1600);
         } catch (error) {
             alert(error.message)
         }

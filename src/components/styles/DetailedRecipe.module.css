@@ -64,7 +64,9 @@
 }
 
 .container img {
-    height: auto;
+    object-fit: cover;
+    height: 400px;
+    width: 80%;
     border-radius: 10px;
 }
 
