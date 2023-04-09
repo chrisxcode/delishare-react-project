@@ -1,4 +1,3 @@
-f<!-- PROJECT LOGO -->
 <br />
 <p align="center">
   <a href="https://delishare-react-project.web.app/">
@@ -18,8 +17,6 @@ f<!-- PROJECT LOGO -->
 </p>
 
 
-
-<!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
   <ol>
@@ -32,8 +29,6 @@ f<!-- PROJECT LOGO -->
 </details>
 
 
-
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 ![App Screen Shot][app-screenshot]
@@ -102,7 +97,6 @@ The project is built using:
 * [React](https://reactjs.org/)
 * [Firebase Auth & Firestore](https://firebase.google.com/)
 
-<!-- GETTING STARTED -->
 ## Local Usage
 
 
@@ -122,7 +116,6 @@ The project is built using:
    ```
 
 
-<!-- CONTACT -->
 ## Contact
 
 Hristo Palhutev - christopalhutev@gmail.com
