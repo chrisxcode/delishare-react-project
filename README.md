@@ -13,7 +13,7 @@
     <img width ='46px' src ='https://raw.githubusercontent.com/rahulbanerjee26/githubAboutMeGenerator/main/icons/reactjs.svg'>
     <img width ='46px' src ='https://github.com/rahulbanerjee26/githubProfileReadmeGenerator/blob/main/icons/firebase.svg'>
     <br />
-    <a href="https://delishare-react-project.web.app/">Live Demo</a>
+    <a href="https://delishare-react-project.web.app/" font-size="30px">Live Demo</a>
   </p>
 </p>
 
